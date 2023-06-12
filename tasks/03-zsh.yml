@@ -30,3 +30,9 @@
   args:
     executable: /bin/bash
   when: "'.oh-my-zsh' not in zsh_env_var.stdout"
+
+- name: Symlink zshrc
+  file:
+    src: "{{playbook_dir}}/configs/zsh/zshrc"
+    dest: "$HOME/.zshrc"
+    state: link

@@ -2,7 +2,16 @@
   hosts: localhost
 
   tasks:
-    - name: Include tasks from tasks folder
-      include_tasks: "{{ item }}"
-      with_fileglob:
-        - tasks/*.yml
+    - name: Find task files
+      find:
+        paths: tasks/
+        patterns: "*.yml"
+      register: task_files
+
+    - name: Sort task files
+      set_fact:
+        sorted_task_files: "{{ task_files.files | sort(attribute='path') }}"
+
+    - name: Include sorted task files
+      include_tasks: "{{ item.path }}"
+      with_items: "{{ sorted_task_files }}"

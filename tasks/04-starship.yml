@@ -1,0 +1,25 @@
+- name: Install starship on Debian/Ubuntu
+  apt:
+    name: starship
+    state: present
+  become: true
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install Zsh on CentOS/RHEL
+  yum:
+    name: starship
+    state: present
+  become: true
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install starship on macOS
+  homebrew:
+    name: starship
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Symlink starship.toml
+  file:
+    src: "{{playbook_dir}}/configs/starship.toml"
+    dest: "$HOME/.config/starship.toml"
+    state: link
