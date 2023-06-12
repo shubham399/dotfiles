@@ -31,6 +31,12 @@
     executable: /bin/bash
   when: "'.oh-my-zsh' not in zsh_env_var.stdout"
 
+- name: Symlink alias
+  file:
+    src: "{{playbook_dir}}/configs/zsh/alias"
+    dest: "$HOME/.alias"
+    state: link
+
 - name: Symlink zshrc
   file:
     src: "{{playbook_dir}}/configs/zsh/zshrc"
