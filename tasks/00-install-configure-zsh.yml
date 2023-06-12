@@ -1,0 +1,32 @@
+- name: Install Zsh on Debian/Ubuntu
+  apt:
+    name: zsh
+    state: present
+  become: true
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install Zsh on CentOS/RHEL
+  yum:
+    name: zsh
+    state: present
+  become: true
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install Zsh on macOS
+  homebrew:
+    name: zsh
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Check if $ZSH is set to .oh-my-zsh
+  shell: echo $ZSH
+  register: zsh_env_var
+  changed_when: false
+  failed_when: false
+  ignore_errors: true
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu', 'CentOS', 'Red Hat Enterprise Linux', 'MacOSX']
+- name: Install Oh My Zsh
+  shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  args:
+    executable: /bin/bash
+  when: "'.oh-my-zsh' not in zsh_env_var.stdout"

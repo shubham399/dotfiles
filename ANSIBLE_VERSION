@@ -1,0 +1,11 @@
+ python3 -m pip show ansible
+ Name: ansible
+ Version: 8.0.0
+ Summary: Radically simple IT automation
+ Home-page: https://ansible.com/
+ Author: Ansible, Inc.
+ Author-email: info@ansible.com
+ License: GPLv3+
+ Location: /Users/shubham/Library/Python/3.11/lib/python/site-packages
+ Requires: ansible-core
+ Required-by:

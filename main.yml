@@ -1,0 +1,8 @@
+- name: Setup Machine
+  hosts: localhost
+
+  tasks:
+    - name: Include tasks from tasks folder
+      include_tasks: "{{ item }}"
+      with_fileglob:
+        - tasks/*.yml
