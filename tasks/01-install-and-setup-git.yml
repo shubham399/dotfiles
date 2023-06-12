@@ -1,0 +1,59 @@
+- name: Install GPG on Debian/Ubuntu
+  apt:
+    name: gnupg
+    state: present
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install GPG on CentOS/RHEL
+  yum:
+    name: gnupg
+    state: present
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install GPG on macOS
+  homebrew:
+    name: gnupg
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Install Git-Delta on Debian/Ubuntu
+  apt:
+    name: git-delta
+    state: present
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install Git-Delta on CentOS/RHEL
+  yum:
+    name: git-delta
+    state: present
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install Git-Delta on macOS
+  homebrew:
+    name: git-delta
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Install Git on Debian/Ubuntu
+  apt:
+    name: git
+    state: present
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install Git on CentOS/RHEL
+  yum:
+    name: git
+    state: present
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install Git on macOS
+  homebrew:
+    name: git
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Symlink gitconfig
+  file:
+    src: "{{playbook_dir}}/configs/git/gitconfig"
+    dest: "$HOME/.gitconfig"
+    state: link
