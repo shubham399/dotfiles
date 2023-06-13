@@ -28,7 +28,7 @@
   shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   args:
     executable: /bin/bash
-  when: oh_my_zsh_folder.stat.exists
+  when: not oh_my_zsh_folder.stat.exists
 
 - name: Remove any Symlink of .alias
   file:
