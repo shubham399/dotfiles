@@ -20,7 +20,7 @@
   when: ansible_facts['distribution'] in ['Debian', 'Ubuntu','CentOS', 'Red Hat Enterprise Linux']
 
 - name: Install starship on Debian/Ubuntu
-  script: /tmp/starship_install.sh
+  script: /tmp/starship_install.sh -y
   become: true
   become_method: sudo
   when: ansible_facts['distribution'] in ['Debian', 'Ubuntu','CentOS', 'Red Hat Enterprise Linux']
