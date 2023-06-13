@@ -18,6 +18,18 @@
     state: present
   when: ansible_facts['distribution'] == 'MacOSX'
 
+- name: Download git-delta package
+  get_url:
+    url: https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_0.16.5_amd64.deb
+    dest: /tmp/git-delta_0.16.5_amd64.deb
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install git-delta package
+  command: dpkg -i /tmp/git-delta_0.16.5_amd64.deb
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
 - name: Install Git-Delta on Debian/Ubuntu
   apt:
     name: git-delta
