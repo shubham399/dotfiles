@@ -30,14 +30,6 @@
   become_method: sudo
   when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
 
-- name: Install Git-Delta on Debian/Ubuntu
-  apt:
-    name: git-delta
-    state: present
-  become: true
-  become_method: sudo
-  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
-
 - name: Install Git-Delta on CentOS/RHEL
   yum:
     name: git-delta
