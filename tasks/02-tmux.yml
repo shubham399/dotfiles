@@ -23,7 +23,7 @@
     repo: https://github.com/tmux-plugins/tpm
     dest: ~/.tmux/plugins/tpm
 
-- name: Temp Tmux.conf for Setup
+- name: Remove any Symlink of .tmux.conf
   file:
     path: "$HOME/.tmux.conf"
     state: absent

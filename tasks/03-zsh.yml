@@ -19,24 +19,34 @@
     state: present
   when: ansible_facts['distribution'] == 'MacOSX'
 
-- name: Check if $ZSH is set to .oh-my-zsh
-  shell: echo $ZSH
-  register: zsh_env_var
-  changed_when: false
-  failed_when: false
-  ignore_errors: true
-  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu', 'CentOS', 'Red Hat Enterprise Linux', 'MacOSX']
+- name: Get information about ~/.oh-my-zsh folder
+  stat:
+    path: ~/.oh-my-zsh
+  register: oh_my_zsh_folder
+
 - name: Install Oh My Zsh
   shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   args:
     executable: /bin/bash
-  when: "'.oh-my-zsh' not in zsh_env_var.stdout"
+  when: oh_my_zsh_folder.stat.exists
+
+- name: Remove any Symlink of .alias
+  file:
+    path: "$HOME/.alias"
+    state: absent
+  ignore_errors: true
 
 - name: Symlink alias
   file:
     src: "{{playbook_dir}}/configs/zsh/alias"
     dest: "$HOME/.alias"
     state: link
+
+- name: Remove any Symlink of .zshrc
+  file:
+    path: "$HOME/.zshrc"
+    state: absent
+  ignore_errors: true
 
 - name: Symlink zshrc
   file:
