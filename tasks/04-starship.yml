@@ -1,17 +1,8 @@
 - name: Install starship on Debian/Ubuntu
-  apt:
-    name: starship
-    state: present
+  command: curl -sS https://starship.rs/install.sh | sh
   become: true
   become_method: sudo
-  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
-
-- name: Install Zsh on CentOS/RHEL
-  yum:
-    name: starship
-    state: present
-  become: true
-  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu','CentOS', 'Red Hat Enterprise Linux']
 
 - name: Install starship on macOS
   homebrew:
