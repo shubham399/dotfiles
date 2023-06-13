@@ -1,43 +1,10 @@
-- name: Install fzf on Debian/Ubuntu
-  apt:
-    name: fzf
-    state: present
-  become: true
-  become_method: sudo
-  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+- name: Clone fzf repository
+  git:
+    repo: https://github.com/junegunn/fzf.git
+    dest: ~/.fzf
+    depth: 1
 
-- name: Install fzf on CentOS/RHEL
-  yum:
-    name: fzf
-    state: present
-  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
-
-- name: Install fzf
-  homebrew:
-    name: fzf
-    state: present
-  when: ansible_facts['distribution'] == 'MacOSX'
-
-- name: Remove any Symlink of .fzf.bash
-  file:
-    path: "$HOME/.fzf.bash"
-    state: absent
-  ignore_errors: true
-
-- name: Symlink zshrc
-  file:
-    src: "{{playbook_dir}}/configs/fzf/.fzf.bash"
-    dest: "$HOME/.fzf.bash"
-    state: link
-
-- name: Remove any Symlink of .fzf.zsh
-  file:
-    path: "$HOME/.fzf.zsh"
-    state: absent
-  ignore_errors: true
-
-- name: Symlink zshrc
-  file:
-    src: "{{playbook_dir}}/configs/fzf/.fzf.zsh"
-    dest: "$HOME/.fzf.zsh"
-    state: link
+- name: Run install script with 'yes' response
+  command: echo "y" | ~/.fzf/install
+  args:
+    executable: /bin/bash
