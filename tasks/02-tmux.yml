@@ -2,6 +2,8 @@
   apt:
     name: tmux
     state: present
+  become: true
+  become_method: sudo
   when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
 
 - name: Install Tmux on CentOS/RHEL

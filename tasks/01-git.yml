@@ -2,6 +2,8 @@
   apt:
     name: gnupg
     state: present
+  become: true
+  become_method: sudo
   when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
 
 - name: Install GPG on CentOS/RHEL
@@ -20,6 +22,8 @@
   apt:
     name: git-delta
     state: present
+  become: true
+  become_method: sudo
   when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
 
 - name: Install Git-Delta on CentOS/RHEL
@@ -38,6 +42,8 @@
   apt:
     name: git
     state: present
+  become: true
+  become_method: sudo
   when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
 
 - name: Install Git on CentOS/RHEL

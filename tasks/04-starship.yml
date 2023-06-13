@@ -3,6 +3,7 @@
     name: starship
     state: present
   become: true
+  become_method: sudo
   when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
 
 - name: Install Zsh on CentOS/RHEL
