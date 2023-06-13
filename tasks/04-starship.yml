@@ -13,8 +13,14 @@
   become: true
   when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
 
+- name: Download Starship script using wget
+  get_url:
+    url: https://starship.rs/install.sh
+    dest: /tmp/starship_install.sh
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu','CentOS', 'Red Hat Enterprise Linux']
+
 - name: Install starship on Debian/Ubuntu
-  shell: curl -sS https://starship.rs/install.sh | sh
+  script: /tmp/starship_install.sh
   become: true
   become_method: sudo
   when: ansible_facts['distribution'] in ['Debian', 'Ubuntu','CentOS', 'Red Hat Enterprise Linux']
