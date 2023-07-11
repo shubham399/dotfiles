@@ -1,0 +1,33 @@
+- name: Install NeoVIM on Debian/Ubuntu
+  apt:
+    name: neovim
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install NeoVIM on CentOS/RHEL
+  yum:
+    name: neovim
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install NeoVIM
+  homebrew:
+    name: neovim
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Symlink .vimrc
+  file:
+    src: "{{playbook_dir}}/configs/nvim/.vimrc"
+    dest: "$HOME/.vimrc"
+    state: link
+
+- name: Symlink .editorconfig
+  file:
+    src: "{{playbook_dir}}/configs/nvim/.editorconfig"
+    dest: "$HOME/.editorconfig"
+    state: link
