@@ -53,3 +53,15 @@
     src: "{{playbook_dir}}/configs/zsh/zshrc"
     dest: "$HOME/.zshrc"
     state: link
+
+- name: Remove any Symlink of .local/bin
+  file:
+    path: "$HOME/.local/bin"
+    state: absent
+  ignore_errors: true
+
+- name: Symlink zshrc
+  file:
+    src: "{{playbook_dir}}/configs/local/bin"
+    dest: "$HOME/.local/bin"
+    state: link
