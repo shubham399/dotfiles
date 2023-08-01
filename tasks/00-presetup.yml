@@ -5,6 +5,8 @@
   when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
 
 - name: Install Homebrew
+  become: true
+  become_method: sudo
   ansible.builtin.shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   args:
     executable: /bin/bash
