@@ -14,6 +14,23 @@
   become_method: sudo
   when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
 
+- name: Install required packages
+  apt:
+    name:
+      - autoconf
+      - libconfuse-dev
+      - libyajl-dev
+      - libasound2-dev
+      - libiw-dev
+      - asciidoc
+      - libpulse-dev
+      - libnl-genl-3-dev
+      - meson
+    state: present
+    become: true
+    become_method: sudo
+    when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
 - name: Install i3status on Debian/Ubuntu
   apt:
     name: i3status
@@ -21,6 +38,21 @@
   become: true
   become_method: sudo
   when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install required packages (Red Hat-based)
+  yum:
+    name:
+      - autoconf
+      - confuse-devel
+      - yajl-devel
+      - alsa-lib-devel
+      - iw-devel
+      - asciidoc
+      - pulseaudio-libs-devel
+      - libnl3-devel
+      - meson
+    state: present
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
 
 - name: Install i3status on CentOS/RHEL
   yum:
