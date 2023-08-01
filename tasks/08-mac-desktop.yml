@@ -48,6 +48,10 @@
 
 
 
+- name: Cleanup Cask
+  ansible.builtin.shell:  brew cleanup --prune=2 && brew cask cleanup
+  when: ansible_facts['distribution'] == 'MacOSX'
+
 - name: Install SF Symbols with Homebrew
   ansible.builtin.shell: brew install --cask sf-symbols
   when: ansible_facts['distribution'] == 'MacOSX'
