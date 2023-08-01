@@ -32,14 +32,12 @@
   ansible.builtin.shell: brew services start sketchybar
   when: ansible_facts['distribution'] == 'MacOSX'
 
-
 - name: Create Library/Fonts directory
   ansible.builtin.file:
     path: "{{ lookup('env', 'HOME') }}/Library/Fonts"
     state: directory
     mode: 0755
   when: ansible_facts['distribution'] == 'MacOSX'
-  
 
 - name: Download sketchybar-app-font
   ansible.builtin.get_url:
@@ -51,6 +49,8 @@
 - name: Install sf-symbols
   ansible.builtin.homebrew_cask:
     name: sf-symbols
+  become: true
+  become_method: sudo
   when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Symlink skhd
