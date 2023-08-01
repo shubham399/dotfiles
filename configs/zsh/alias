@@ -47,6 +47,7 @@ alias gls="git log --oneline --graph --decorate"
 alias cbh='echo "connect  78:44:05:C9:3B:9F" | bluetoothctl'
 alias dbh='echo "disconnect  78:44:05:C9:3B:9F" | bluetoothctl'
 alias cc="echo -n \"echo '$(cat ~/.ssh/id_rsa.pub)' >> ~/.ssh/authorized_keys\" | pc"
+alias skey="echo -n \"echo '$(pbpaste)' >> ~/.ssh/authorized_keys\" | pc"
 ## only for debian
 alias sysup="sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoclean -y && sudo apt-get autoremove -y"
 alias htw="cd ~/Documents/Personal/shubhkumar.in;rm -Rf node_modules;nvm use;npm i;hexo clean;hexo g;hexo twitter-publish;git add .;git commit -m "Twitter post";git push"

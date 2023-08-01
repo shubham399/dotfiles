@@ -1,0 +1,66 @@
+- name: Tap koekeishiya/formulae repository
+  ansible.builtin.homebrew_tap:
+    name: koekeishiya/formulae
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Install yabai
+  homebrew:
+    name: yabai
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Install skhd
+  homebrew:
+    name: skhd
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Tap FelixKratz/formulae repository
+  ansible.builtin.homebrew_tap:
+    name: FelixKratz/formulae
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Install sketchybar
+  homebrew:
+    name: sketchybar
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Start SketchyBar service
+  ansible.builtin.shell: brew services start sketchybar
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Download sketchybar-app-font
+  ansible.builtin.get_url:
+    url: https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v1.0.4/sketchybar-app-font.ttf
+    dest: "{{ lookup('env', 'HOME') }}/Library/Fonts/sketchybar-app-font.ttf"
+    mode: 0644
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Install sf-symbols
+  ansible.builtin.homebrew_cask:
+    name: sf-symbols
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Symlink skhd
+  file:
+    src: "{{playbook_dir}}/configs/skhd"
+    dest: "$HOME/.config/skhd"
+    state: link
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Symlink yabai
+  file:
+    src: "{{playbook_dir}}/configs/yabai"
+    dest: "$HOME/.config/yabai"
+    state: link
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Symlink sketchybar
+  file:
+    src: "{{playbook_dir}}/configs/sketchybar"
+    dest: "$HOME/.config/sketchybar"
+    state: link
+  when: ansible_facts['distribution'] == 'MacOSX'
