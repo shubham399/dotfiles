@@ -1,0 +1,11 @@
+- name: Run 'sudo apt update'
+  ansible.builtin.shell: apt update
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install Homebrew
+  ansible.builtin.shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  args:
+    executable: /bin/bash
+  when: ansible_facts['distribution'] == 'MacOSX'
