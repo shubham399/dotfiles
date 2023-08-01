@@ -30,3 +30,8 @@ ansible-playbook  main.yml
 * [yabai](https://github.com/koekeishiya/yabai) - MAC OS Only
 * [skhd](https://github.com/koekeishiya/skhd) - MAC OS Only
 * [sketchybar](https://github.com/FelixKratz/SketchyBar) - MAC OS Only
+
+
+## Test Status
+
+![BuildStatus](https://github.com/shubham399/new-dotfiles/actions/workflows/test.yml/badge.svg)
