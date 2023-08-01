@@ -46,17 +46,14 @@
     mode: 0644
   when: ansible_facts['distribution'] == 'MacOSX'
 
-
-
 - name: Cleanup Cask
-  ansible.builtin.shell:  brew cleanup --prune=2
+  ansible.builtin.shell: brew cleanup --prune=2
   when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install SF Symbols with Homebrew
-  ansible.builtin.shell: brew install --cask sf-symbols
+  ansible.builtin.shell: brew install sf-symbols --cask --force
+  ignore_errors: true # TODO: fix this for GithubAction
   when: ansible_facts['distribution'] == 'MacOSX'
-
-
 
 - name: Symlink skhd
   file:
