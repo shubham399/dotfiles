@@ -46,12 +46,13 @@
     mode: 0644
   when: ansible_facts['distribution'] == 'MacOSX'
 
-- name: Install sf-symbols
-  ansible.builtin.homebrew_cask:
-    name: sf-symbols
-  become: true
-  become_method: sudo
+
+
+- name: Install SF Symbols with Homebrew
+  ansible.builtin.shell: brew install --cask sf-symbols
   when: ansible_facts['distribution'] == 'MacOSX'
+
+
 
 - name: Symlink skhd
   file:
