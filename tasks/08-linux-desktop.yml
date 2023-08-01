@@ -1,0 +1,68 @@
+- name: Install i3 on Debian/Ubuntu
+  apt:
+    name: i3
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install i3 on CentOS/RHEL
+  yum:
+    name: i3
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install i3status on Debian/Ubuntu
+  apt:
+    name: i3status
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install i3status on CentOS/RHEL
+  yum:
+    name: i3status
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install i3blocks on Debian/Ubuntu
+  apt:
+    name: i3blocks
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install i3blocks on CentOS/RHEL
+  yum:
+    name: i3blocks
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Symlink i3
+  file:
+    src: "{{playbook_dir}}/configs/i3"
+    dest: "$HOME/.config/i3"
+    state: link
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu', 'CentOS', 'Red Hat Enterprise Linux']
+
+- name: Symlink i3blocks
+  file:
+    src: "{{playbook_dir}}/configs/i3blocks"
+    dest: "$HOME/.config/i3blocks"
+    state: link
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu', 'CentOS', 'Red Hat Enterprise Linux']
+
+- name: Symlink i3status
+  file:
+    src: "{{playbook_dir}}/configs/i3status"
+    dest: "$HOME/.config/i3status"
+    state: link
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu', 'CentOS', 'Red Hat Enterprise Linux']
