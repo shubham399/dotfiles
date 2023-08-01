@@ -17,7 +17,9 @@ ansible-playbook  main.yml
 
 
 ## Tools Installed
+* [gnupg](https://gnupg.org/)
 * [git](https://git-scm.com/)
+* [git-delta](https://github.com/dandavison/delta)
 * [tmux](https://github.com/tmux/tmux)
 * [zsh](https://www.zsh.org/)
 * [oh-my-zsh](https://ohmyz.sh/)
