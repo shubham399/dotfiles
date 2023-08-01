@@ -26,8 +26,21 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Cache Ansible and Python dependencies
+        uses: actions/cache@v2
+        with:
+            path: |
+                ~/.ansible
+                ~/.local/lib/python3.11/site-packages
+            key: ${{ runner.os }}-ansible-python-${{ hashFiles('**/requirements.txt') }}
+            restore-keys: |
+             ${{ runner.os }}-ansible-python-
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v4
         with:
             python-version: '3.11' 
 
