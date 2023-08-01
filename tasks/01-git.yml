@@ -62,6 +62,12 @@
     state: present
   when: ansible_facts['distribution'] == 'MacOSX'
 
+- name: Remove any Symlink of .gitconfig
+  file:
+    path: "$HOME/.gitconfig"
+    state: absent
+  ignore_errors: true
+
 - name: Symlink gitconfig
   file:
     src: "{{playbook_dir}}/configs/git/gitconfig"
