@@ -27,9 +27,9 @@
       - libnl-genl-3-dev
       - meson
     state: present
-    become: true
-    become_method: sudo
-    when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
 
 - name: Install i3status on Debian/Ubuntu
   apt:
@@ -40,6 +40,8 @@
   when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
 
 - name: Install required packages (Red Hat-based)
+  become: true
+  become_method: sudo
   yum:
     name:
       - autoconf
