@@ -30,6 +30,9 @@ ansible-playbook  main.yml
 * [yabai](https://github.com/koekeishiya/yabai) - MAC OS Only
 * [skhd](https://github.com/koekeishiya/skhd) - MAC OS Only
 * [sketchybar](https://github.com/FelixKratz/SketchyBar) - MAC OS Only
+* [i3](https://i3wm.org/) - Linux Only
+* [i3blocks](https://github.com/vivien/i3blocks) - Linux Only
+* [i3status](https://github.com/i3/i3status)
 
 
 ## Test Status
