@@ -44,13 +44,12 @@
 - name: Reload Tmux Configuration
   command: tmux source-file ~/.tmux.conf
   ignore_errors: yes
-  become: yes
+
   
 - name: Install Plugins using TPM
   command: ~/.tmux/plugins/tpm/bin/install_plugins
-  become: yes
+
   
 - name: Remove Tmux Session if It Exists
   command: tmux kill-session -t ansible-check
   ignore_errors: yes
-  become: yes
