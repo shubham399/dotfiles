@@ -4,7 +4,7 @@
     dest: ~/.fzf
     depth: 1
 
-- name: Run install script with 'yes' response
+- name: Install FZF
   command: echo "y" | ~/.fzf/install
   args:
     executable: /bin/bash
