@@ -35,6 +35,12 @@
     dest: "$HOME/.tmux.conf"
     state: link
 
+- name: Ensure Tmux Server is Running
+  command: tmux new-session -d -s ansible-check
+  ignore_errors: yes
+  become: yes
+
+
 
 - name: Reload Tmux Configuration
   command: tmux source-file ~/.tmux.conf
