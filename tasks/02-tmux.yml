@@ -34,3 +34,13 @@
     src: "{{playbook_dir}}/configs/tmux/tmux.conf"
     dest: "$HOME/.tmux.conf"
     state: link
+
+
+- name: Reload Tmux Configuration
+  command: tmux source-file ~/.tmux.conf
+  become: yes
+  
+- name: Install Plugins using TPM
+  command: tmux prefix + I -c "~/.tmux/plugins/tpm"
+  become: yes
+  
