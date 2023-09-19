@@ -41,6 +41,6 @@
   become: yes
   
 - name: Install Plugins using TPM
-  command: tmux prefix + I -c "~/.tmux/plugins/tpm"
+  command: ~/.tmux/plugins/tpm/bin/install_plugins
   become: yes
   
