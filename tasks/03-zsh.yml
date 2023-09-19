@@ -48,6 +48,28 @@
     state: absent
   ignore_errors: true
 
+- name: Get the current user's name
+  shell: echo $USER # Use the $USER environment variable to get the current user's name
+  register: current_user
+
+
+- name: Get the current user's current shell
+  shell: echo $SHELL
+  register: current_shell
+
+- name: Get the path to Zsh
+  shell: which zsh
+  register: zsh_path
+
+- debug:
+    var: current_shell.stdout
+
+- name: Set Zsh as default shell for the current user
+  command: chsh -s {{ zsh_path.stdout }} {{ current_user.stdout }}
+  when: current_shell.stdout != zsh_path.stdout
+  become: true
+  become_method: sudo
+
 - name: Symlink zshrc
   file:
     src: "{{playbook_dir}}/configs/zsh/zshrc"
