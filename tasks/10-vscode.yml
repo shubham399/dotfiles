@@ -31,14 +31,15 @@
   become_method: sudo
   when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
 
-##TODO: Fix this step
 - name: Add Visual Studio Code repository
-  lineinfile:
+  copy:
+    content: |
+      deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main
     dest: /etc/apt/sources.list.d/vscode.list
-    line: 'deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main'
   become: true
   become_method: sudo
   when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
 
 - name: Remove temporary GPG key file
   file:
