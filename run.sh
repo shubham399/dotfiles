@@ -24,7 +24,7 @@ install_python_linux() {
     if ! check_command_installed "python3.11"; then
         echo "Installing Python 3.11..."
         sudo apt update
-        sudo apt install -y python3.11
+        sudo apt install -y python3.11 python3-pip
     else
         echo "Python 3.11 is already installed."
     fi
