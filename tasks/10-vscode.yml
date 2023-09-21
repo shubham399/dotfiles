@@ -1,0 +1,20 @@
+- name: Install Visual Studio Code on Debian/Ubuntu
+  apt:
+    name: code
+    state: present
+    update_cache: yes
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install Visual Studio Code on CentOS/RHEL
+  yum:
+    name: code
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install Visual Studio Code
+  command: "brew install --cask visual-studio-code"
+  when: ansible_facts['distribution'] == 'MacOSX'
