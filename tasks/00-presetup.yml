@@ -3,3 +3,7 @@
   become: true
   become_method: sudo
   when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Create .config folder
+  ansible.builtin.shell: mkdir -p ~/.config
+  
