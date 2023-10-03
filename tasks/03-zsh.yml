@@ -61,9 +61,6 @@
   shell: which zsh
   register: zsh_path
 
-- debug:
-    var: current_shell.stdout
-
 - name: Set Zsh as default shell for the current user
   command: chsh -s {{ zsh_path.stdout }} {{ current_user.stdout }}
   when: current_shell.stdout != zsh_path.stdout
