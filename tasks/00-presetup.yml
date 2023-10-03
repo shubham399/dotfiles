@@ -9,3 +9,4 @@
 
 - name: Create .config folder
   ansible.builtin.shell: mkdir -p ~/.secrets
+

@@ -1,0 +1,79 @@
+- name: Install required packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - wget
+    - gpg
+    - apt-transport-https
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+
+- name: Download Microsoft GPG key
+  shell: wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+  args:
+    chdir: /tmp
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+
+- name: Install Microsoft GPG key
+  copy:
+    src: /tmp/packages.microsoft.gpg
+    dest: /etc/apt/keyrings/packages.microsoft.gpg
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Add Visual Studio Code repository
+  copy:
+    content: |
+      deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main
+    dest: /etc/apt/sources.list.d/vscode.list
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+
+- name: Remove temporary GPG key file
+  file:
+    path: /tmp/packages.microsoft.gpg
+    state: absent
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Update APT cache
+  apt:
+    update_cache: yes
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+
+- name: Install Visual Studio Code on Debian/Ubuntu
+  apt:
+    name: code
+    state: present
+    update_cache: yes
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install Visual Studio Code on CentOS/RHEL
+  yum:
+    name: code
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install Visual Studio Code
+  command: "brew install --cask visual-studio-code"
+  when: ansible_facts['distribution'] == 'MacOSX'
