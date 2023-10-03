@@ -33,6 +33,7 @@ ansible-playbook  main.yml
 * [i3](https://i3wm.org/) - Linux Only
 * [i3blocks](https://github.com/vivien/i3blocks) - Linux Only
 * [i3status](https://github.com/i3/i3status) - Linux Only
+* [vscode](https://code.visualstudio.com/)
 
 
 ## Test Status
