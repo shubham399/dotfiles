@@ -62,12 +62,12 @@
     state: present
   when: ansible_facts['distribution'] == 'MacOSX'
   ignore_errors: true
-  register: timeout-message
+  register: timeout_install_result
 
 - name: Handle time-out installation error on MacOSX
   fail:
-    msg: "{{ timeout-message.msg }}"
-  when: "'Warning: Not upgrading time-out, the latest version is already installed' not in timeout-message.msg"
+    msg: "{{ timeout_install_result.msg }}"
+  when: "'Warning: Not upgrading time-out, the latest version is already installed' not in timeout_install_result.msg"
   ignore_errors: true
 
 
