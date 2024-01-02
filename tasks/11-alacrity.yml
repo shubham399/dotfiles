@@ -2,9 +2,13 @@
   apt_repository:
     repo: ppa:aslatter/ppa
     state: present
+  become: true
+  become_method: sudo
   when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
 
 - name: Update package list
+  become: true
+  become_method: sudo
   apt:
     update_cache: yes
   when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
