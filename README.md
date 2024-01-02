@@ -33,8 +33,12 @@ ansible-playbook  main.yml
 * [i3](https://i3wm.org/) - Linux Only
 * [i3blocks](https://github.com/vivien/i3blocks) - Linux Only
 * [i3status](https://github.com/i3/i3status) - Linux Only
+* [safeeyes](https://slgobinath.github.io/SafeEyes/) - Linux Only
+* [redshift](https://github.com/jonls/redshift) - Linux Only
+* [timeout](https://apps.apple.com/us/app/time-out-break-reminders/id402592703?mt=12) - Mac-Only
 * [vscode](https://code.visualstudio.com/)
 * [exa](https://github.com/ogham/exa)
+* [alacritty](https://github.com/alacritty/alacritty)
 
 
 ## Test Status

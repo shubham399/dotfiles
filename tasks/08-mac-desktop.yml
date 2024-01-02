@@ -55,12 +55,30 @@
   ignore_errors: true # TODO: fix this for GithubAction
   when: ansible_facts['distribution'] == 'MacOSX'
 
+
+- name: Install Time Out - Break Reminders app on MacOS
+  homebrew_cask:
+    name: time-out
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+  ignore_errors: true
+  register: timeout-message
+
+- name: Handle time-out installation error on MacOSX
+  fail:
+    msg: "{{ timeout-message.msg }}"
+  when: "'Warning: Not upgrading time-out, the latest version is already installed' not in timeout-message.msg"
+  ignore_errors: true
+
+
+
 - name: Symlink skhd
   file:
     src: "{{playbook_dir}}/configs/skhd"
     dest: "$HOME/.config/skhd"
     state: link
   when: ansible_facts['distribution'] == 'MacOSX'
+
 
 - name: Symlink yabai
   file:

@@ -17,15 +17,15 @@
 - name: Install required packages
   apt:
     name:
-      - autoconf
-      - libconfuse-dev
-      - libyajl-dev
-      - libasound2-dev
-      - libiw-dev
-      - asciidoc
-      - libpulse-dev
-      - libnl-genl-3-dev
-      - meson
+    - autoconf
+    - libconfuse-dev
+    - libyajl-dev
+    - libasound2-dev
+    - libiw-dev
+    - asciidoc
+    - libpulse-dev
+    - libnl-genl-3-dev
+    - meson
     state: present
   become: true
   become_method: sudo
@@ -44,15 +44,15 @@
   become_method: sudo
   yum:
     name:
-      - autoconf
-      - confuse-devel
-      - yajl-devel
-      - alsa-lib-devel
-      - iw-devel
-      - asciidoc
-      - pulseaudio-libs-devel
-      - libnl3-devel
-      - meson
+    - autoconf
+    - confuse-devel
+    - yajl-devel
+    - alsa-lib-devel
+    - iw-devel
+    - asciidoc
+    - pulseaudio-libs-devel
+    - libnl3-devel
+    - meson
     state: present
   when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
 
@@ -98,5 +98,51 @@
   file:
     src: "{{playbook_dir}}/configs/i3status"
     dest: "$HOME/.config/i3status"
+    state: link
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu', 'CentOS', 'Red Hat Enterprise Linux']
+
+
+
+- name: Install Redshift on Debian/Ubuntu
+  apt:
+    name: redshift
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install redshift on CentOS/RHEL
+  yum:
+    name: redshift
+    state: present
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+
+- name: Symlink redshift conffig
+  file:
+    src: "{{playbook_dir}}/configs/redshift/redshift.conf"
+    dest: "$HOME/.config/redshift.conf"
+    state: link
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu', 'CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install safeeyes on Debian/Ubuntu
+  apt:
+    name: safeeyes
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install safeeyes on CentOS/RHEL
+  yum:
+    name: safeeyes
+    state: present
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+
+- name: Symlink safeeyes conffig
+  file:
+    src: "{{playbook_dir}}/configs/safeeyes"
+    dest: "$HOME/.config/safeeyes"
     state: link
   when: ansible_facts['distribution'] in ['Debian', 'Ubuntu', 'CentOS', 'Red Hat Enterprise Linux']
