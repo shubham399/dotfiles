@@ -26,6 +26,7 @@
     - libpulse-dev
     - libnl-genl-3-dev
     - meson
+    - xclip
     state: present
   become: true
   become_method: sudo
@@ -53,6 +54,7 @@
     - pulseaudio-libs-devel
     - libnl3-devel
     - meson
+    - xclip
     state: present
   when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
 
