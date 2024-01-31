@@ -37,7 +37,7 @@ then
 fi
 
 if [ /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi 2>/dev/null
-for file in $(find ~/.secrets -type f); do source $file > /dev/null; done
+for file in $(find -L ~/.secrets -type f); do source $file > /dev/null; done
 # CONTEXT="%{$FG[011]%}\$(getCurrContext 2>/dev/null)%{$reset_color%}"
 # NEWLINE=$'\n'
 export PROMPT="$CONTEXT$PROMPT${NEWLINE}> "
@@ -47,3 +47,4 @@ export PATH="${PATH}:${HOME}/.krew/bin:${HOME}/.local/bin"
 export YSU_HARDCORE=1
 setopt HIST_IGNORE_ALL_DUPS
 eval "$(starship init zsh)"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
