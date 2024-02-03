@@ -39,6 +39,7 @@ ansible-playbook  main.yml
 * [vscode](https://code.visualstudio.com/)
 * [exa](https://github.com/ogham/exa)
 * [alacritty](https://github.com/alacritty/alacritty)
+* [bat](https://github.com/sharkdp/bat)
 
 
 ## Test Status

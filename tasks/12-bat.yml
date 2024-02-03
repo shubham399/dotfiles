@@ -1,0 +1,21 @@
+- name: Install bat on Debian/Ubuntu
+  apt:
+    name: bat
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install bat on CentOS/RHEL
+  yum:
+    name: bat
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install bat on MacOSX
+  homebrew:
+    name: bat
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
