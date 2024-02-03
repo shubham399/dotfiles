@@ -40,6 +40,7 @@ ansible-playbook  main.yml
 * [exa](https://github.com/ogham/exa)
 * [alacritty](https://github.com/alacritty/alacritty)
 * [bat](https://github.com/sharkdp/bat)
+* [ripgrep](https://github.com/BurntSushi/ripgrep)
 
 
 ## Test Status
