@@ -47,6 +47,7 @@ alias gc='git commit -v'
 # Git fetch and pull
 alias gpull='git fetch && git pull'
 
+alias gitdelete='git fetch --all -p; git branch -vv | grep ": gone]" | awk '\''{ print $1 }'\'' | xargs -n 1 git branch -D'
 # Git pull and delete remote branches that are no longer available
 alias gpd="gpull && gitdelete"
 
