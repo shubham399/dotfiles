@@ -66,7 +66,7 @@ alias htw="cd ~/Documents/Personal/shubhkumar.in;rm -Rf node_modules;nvm use;npm
 alias jj="pbpaste | jsonpp | pbcopy"
 
 # List files using 'exa'
-alias ls=exa
+# alias ls=exa
 
 # List all files and directories including hidden ones
 alias la='ls -a'

@@ -37,7 +37,7 @@ ansible-playbook  main.yml
 * [redshift](https://github.com/jonls/redshift) - Linux Only
 * [timeout](https://apps.apple.com/us/app/time-out-break-reminders/id402592703?mt=12) - Mac-Only
 * [vscode](https://code.visualstudio.com/)
-* [exa](https://github.com/ogham/exa)
+* [exa](https://github.com/ogham/exa) -> DISABLED (unmaintained)
 * [alacritty](https://github.com/alacritty/alacritty)
 * [bat](https://github.com/sharkdp/bat)
 * [ripgrep](https://github.com/BurntSushi/ripgrep)
