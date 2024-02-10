@@ -19,3 +19,5 @@
     name: exa
     state: present
   when: ansible_facts['distribution'] == 'MacOSX'
+  environment:
+    HOMEBREW_NO_INSTALL_FROM_API: "1"
