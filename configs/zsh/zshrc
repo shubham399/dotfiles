@@ -50,3 +50,4 @@ eval "$(starship init zsh)"
 if command -v ngrok &>/dev/null; then
   eval "$(ngrok completion)"
 fi
+fpath=(~/.zsh.d/ $fpath)
