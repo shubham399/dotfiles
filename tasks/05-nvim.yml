@@ -20,11 +20,19 @@
     state: present
   when: ansible_facts['distribution'] == 'MacOSX'
 
-- name: Symlink .vimrc
+- name: Backup nvim config
+  command: mv ~/.config/nvim ~/.config/nvim.bak
+
+- name: Clone LazyVim starter repository
+  git:
+    repo: https://github.com/LazyVim/starter
+    dest: ~/.config/nvim
+
+- name: Remove .git directory
   file:
-    src: "{{playbook_dir}}/configs/nvim/.vimrc"
-    dest: "$HOME/.vimrc"
-    state: link
+    path: ~/.config/nvim/.git
+    state: absent
+  ignore_errors: true
 
 - name: Symlink .editorconfig
   file:
