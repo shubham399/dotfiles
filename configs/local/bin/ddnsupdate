@@ -1,0 +1,4 @@
+#!/bin/bash
+source ~/.secrets/.ddns
+MYIP=$(curl -sL ipconfig.me)
+curl -s -u "$DDNS_USER:$DDNS_PASSWORD" "http://dynupdate.no-ip.com/nic/update?hostname=$DDN_HOSTNAME&myip=$MYIP" > /dev/null
