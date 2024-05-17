@@ -19,16 +19,18 @@
     state: present
   when: ansible_facts['distribution'] == 'MacOSX'
 
-- name: Get information about ~/.oh-my-zsh folder
-  stat:
-    path: ~/.oh-my-zsh
-  register: oh_my_zsh_folder
 
-- name: Install Oh My Zsh
-  shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  args:
-    executable: /bin/bash
-  when: not oh_my_zsh_folder.stat.exists
+- name: Remove any Symlink of .p10k.zsh
+  file:
+    path: "$HOME/.p10k.zsh"
+    state: absent
+  ignore_errors: true
+
+- name: Symlink p10k.zsh
+  file:
+    src: "{{playbook_dir}}/configs/zsh/p10k.zsh"
+    dest: "$HOME/.p10k.zsh"
+    state: link
 
 - name: Remove any Symlink of .alias
   file:
@@ -84,13 +86,3 @@
     src: "{{playbook_dir}}/configs/local/bin"
     dest: "$HOME/.local/bin"
     state: link
-
-- name: Clone zsh-autosuggestions repository
-  git:
-    repo: https://github.com/zsh-users/zsh-autosuggestions
-    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions"
-
-- name: Clone zsh-you-should-use repository
-  git:
-    repo: https://github.com/MichaelAquilina/zsh-you-should-use.git
-    dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/you-should-use"
