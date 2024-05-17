@@ -1,3 +1,6 @@
+# use zoxide
+alias cd=z
+
 # Clear the terminal
 alias c=clear
 
@@ -68,13 +71,13 @@ alias jj="pbpaste | jsonpp | pbcopy"
 # List files using 'exa'
 # alias ls=exa
 
+alias ls='ls --color=auto'
+alias l='ls --color=auto'
 # List all files and directories including hidden ones
-alias la='ls -a'
+alias la='ls --color=auto -a'
 
 # List all files with detailed information
-alias ll='ls -lah'
-
-
+alias ll='ls  --color=auto -lah'
 
 # Create directory with parent directories if necessary
 alias md='mkdir -p'
@@ -101,27 +104,18 @@ alias uuid=' tr -dc A-Za-z0-9 </dev/urandom | head -c 2000| md5sum | cut -c1-30'
 # Launch NeoVim using 'nvim'
 alias vim="nvim"
 
-
-
-
 ## Get me a new temp working dir
-ot(){
-	cd $(mktemp -d)
+ot() {
+  cd $(mktemp -d)
 }
 ## Kubernetes Shell
-kshell(){
- kubectl exec -it $1 -- bash
+kshell() {
+  kubectl exec -it $1 -- bash
 }
 
-isup(){
-	curl -s https://isitup.org/$1 | egrep -o '(Yay, .* is up)|(Oh no .* is down!)' | uniq
+isup() {
+  curl -s https://isitup.org/$1 | egrep -o '(Yay, .* is up)|(Oh no .* is down!)' | uniq
 }
-
-
-
-# Git version checking
-autoload -Uz is-at-least
-git_version="${${(As: :)$(git version 2>/dev/null)}[3]}"
 
 #
 # Functions
@@ -136,7 +130,7 @@ function current_branch() {
 }
 
 # Pretty log messages
-function _git_log_prettily(){
+function _git_log_prettily() {
   if ! [ -z $1 ]; then
     git log --pretty=$1
   fi
@@ -173,9 +167,9 @@ function git_develop_branch() {
   echo develop
 }
 
-function commit(){
+function commit() {
   git commit -S -m "$1"
 }
-function cm(){
+function cm() {
   git commit -S -m "$1"
 }
