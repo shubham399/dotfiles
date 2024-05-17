@@ -95,7 +95,7 @@ export NVM_NODEJS_ORG_MIRROR=https://nodejs.org/dist
 
 # Shell integrations
 eval "$(fzf --zsh)"
-eval "$(zoxide init zsh)"
+eval "$(zoxide init --cmd cd zsh)"
 
 # Auto change nvm version on cd based on .nvmrc file
 autoload -U add-zsh-hook

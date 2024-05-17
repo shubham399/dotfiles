@@ -1,6 +1,3 @@
-# use zoxide
-alias cd=z
-
 # Clear the terminal
 alias c=clear
 
