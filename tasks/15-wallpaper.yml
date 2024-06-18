@@ -1,0 +1,28 @@
+- name: Set wallpaper on MacOS
+  become: true
+  become_method: sudo
+  ansible.builtin.shell: |
+    osascript -e 'tell application "System Events" to set picture of every desktop to "{{ wallpaper_path }}"'
+  when: ansible_facts['os_family'] == 'Darwin'
+  vars:
+    wallpaper_path: "../assets/wallpapers/wall.png"
+
+- name: Set wallpaper on Windows
+  become: true
+  become_method: sudo
+  win_shell: |
+    reg add "HKEY_CURRENT_USER\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "{{ wallpaper_path }}" /f
+    RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters ,1 ,True
+  when: ansible_facts['os_family'] == 'Windows'
+  vars:
+    wallpaper_path: "../assets/wallpapers/wall.png"
+
+- name: Set wallpaper on Linux
+  become: true
+  become_method: sudo
+  ansible.builtin.shell: |
+    gsettings set org.gnome.desktop.background picture-uri "file://{{ wallpaper_path }}"
+  when: ansible_facts['os_family'] == 'Debian' or ansible_facts['os_family'] == 'RedHat'
+  vars:
+    wallpaper_path: "../assets/wallpapers/wall.png"
+
