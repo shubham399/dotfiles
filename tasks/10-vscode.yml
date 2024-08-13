@@ -3,9 +3,9 @@
     name: "{{ item }}"
     state: present
   loop:
-    - wget
-    - gpg
-    - apt-transport-https
+  - wget
+  - gpg
+  - apt-transport-https
   become: true
   become_method: sudo
   when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
@@ -74,6 +74,6 @@
   become_method: sudo
   when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
 
-- name: Install Visual Studio Code
-  command: "brew install --cask visual-studio-code"
+- name: Install Cursor
+  command: "brew install --cask cursor"
   when: ansible_facts['distribution'] == 'MacOSX'

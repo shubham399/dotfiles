@@ -124,7 +124,7 @@ ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"; 
 ctrl + alt + cmd - s : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"; \
                        launchctl kickstart -k "gui/${UID}/homebrew.mxcl.skhd"
 
-ctrl + shift - 0x24  : open -a /Applications/Alacritty.app
+ctrl + shift - 0x24  : open -a /Applications/WezTerm.app
 ctrl + shift - z    : open -a /Applications/Slack.app
 ctrl + shift - c    : open -a "/Applications/Visual Studio Code.app"
 ctrl + shift - q     : yabai -m window --close
