@@ -5,6 +5,20 @@
   when: ansible_facts['distribution'] == 'MacOSX'
 
 
+
+- name: Ensure FelixKratz/formulae tap is added
+  homebrew_tap:
+    name: FelixKratz/formulae
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Install JankyBorder
+  homebrew:
+    name: borders
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+
 - name: Install sketchybar
   homebrew:
     name: sketchybar
