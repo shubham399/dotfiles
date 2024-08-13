@@ -1,26 +1,9 @@
-- name: Tap koekeishiya/formulae repository
-  ansible.builtin.homebrew_tap:
-    name: koekeishiya/formulae
-    state: present
-  when: ansible_facts['distribution'] == 'MacOSX'
-
-- name: Install yabai
+- name: Install aerospace
   homebrew:
-    name: yabai
+    name: nikitabobko/tap/aerospace
     state: present
   when: ansible_facts['distribution'] == 'MacOSX'
 
-- name: Install skhd
-  homebrew:
-    name: skhd
-    state: present
-  when: ansible_facts['distribution'] == 'MacOSX'
-
-- name: Tap FelixKratz/formulae repository
-  ansible.builtin.homebrew_tap:
-    name: FelixKratz/formulae
-    state: present
-  when: ansible_facts['distribution'] == 'MacOSX'
 
 - name: Install sketchybar
   homebrew:
@@ -72,18 +55,10 @@
 
 
 
-- name: Symlink skhd
+- name: Symlink AeroSpace
   file:
-    src: "{{playbook_dir}}/configs/skhd"
-    dest: "$HOME/.config/skhd"
-    state: link
-  when: ansible_facts['distribution'] == 'MacOSX'
-
-
-- name: Symlink yabai
-  file:
-    src: "{{playbook_dir}}/configs/yabai"
-    dest: "$HOME/.config/yabai"
+    src: "{{playbook_dir}}/configs/aerospace"
+    dest: "$HOME/.config/aerospace"
     state: link
   when: ansible_facts['distribution'] == 'MacOSX'
 
