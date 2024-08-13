@@ -4,7 +4,6 @@
 
 source "$HOME/.config/common_wm/icons.sh"
 
-
 PERCENTAGE=$(pmset -g batt | grep -Eo "\d+%" | cut -d% -f1)
 CHARGING=$(pmset -g batt | grep 'AC Power')
 
@@ -14,29 +13,29 @@ fi
 
 case ${PERCENTAGE} in
 [8-9][0-9] | 100)
-    ICON=""
+    ICON=$BATTERY_100
     ICON_COLOR=0xffa6da95
     ;;
 7[0-9])
-    ICON=""
+    ICON="$BATTERY_75"
     ICON_COLOR=0xffeed49f
     ;;
 [4-6][0-9])
-    ICON=""
+    ICON=$BATTERY_50
     ICON_COLOR=0xfff5a97f
     ;;
 [1-3][0-9])
-    ICON=""
+    ICON=$BATTERY_25
     ICON_COLOR=0xffee99a0
     ;;
 [0-9])
-    ICON=""
+    ICON=$BATTERY_0
     ICON_COLOR=0xffed8796
     ;;
 esac
 
 if [[ $CHARGING != "" ]]; then
-    ICON=""
+    ICON=$BATTERY_CHARGING
     ICON_COLOR=0xffeed49f
 fi
 
