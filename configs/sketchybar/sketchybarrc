@@ -63,7 +63,17 @@ source "$ITEM_DIR/front_app.sh"
 # Center
 # source "$ITEM_DIR/mode_indicator.sh"
 
+sketchybar --add item weather center \
+    --set weather \
+    icon.font="$FONT_FACE:Bold:15.0" \
+    update_freq=1800 \
+    script="$PLUGIN_DIR/weather.sh" \
+    --subscribe weather system_woke
 # Right
+sketchybar --add item battery right \
+    --set battery \
+    update_freq=20 \
+    script="$PLUGIN_DIR/battery.sh"
 
 source "$ITEM_DIR/brew.sh"
 
