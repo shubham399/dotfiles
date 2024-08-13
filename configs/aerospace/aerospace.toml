@@ -10,6 +10,7 @@
 after-login-command = [
     'exec-and-forget sketchybar',
     'exec-and-forget open -n /Applications/Slack.app',
+    'exec-and-forget open -n /Applications/Arc.app',
     'exec-and-forget open -n /Applications/WezTerm.app',
 ]
 
@@ -83,6 +84,9 @@ outer.right = 18
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 # 'main' binding mode must be always presented
 [mode.main.binding]
+
+cmd-h = [] # Disable "hide application"
+cmd-alt-h = [] # Disable "hide others"
 
 # All possible keys:
 # - Letters.        a, b, c, ..., z
