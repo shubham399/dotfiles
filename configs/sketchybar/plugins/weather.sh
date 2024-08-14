@@ -54,5 +54,5 @@ case ${MOON_PHASE} in
     ;;
 esac
 
-sketchybar --set $NAME label="$LOCATION $TEMPERATURE℃ $WEATHER_DESCRIPTION"
+sketchybar --set $NAME label="$LOCATION a $TEMPERATURE℃ $WEATHER_DESCRIPTION"
 sketchybar --set $NAME.moon icon=$ICON
