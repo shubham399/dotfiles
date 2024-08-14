@@ -79,6 +79,12 @@ sketchybar --add item battery right \
 sketchybar --add item volume right \
     --set volume script="$PLUGIN_DIR/volume.sh" \
     background.height=20 \
+    icon="🔊" \
+    icon.color=$ORANGE \
+    label.drawing=on \
+    label.padding_left=5 \
+    background.animation=on \
+    background.corner_radius=5 \
     update_freq=1
 
 source "$ITEM_DIR/brew.sh"
