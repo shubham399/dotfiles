@@ -25,7 +25,6 @@ after-login-command = [
 after-startup-command = [
     'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0',
     'exec-and-forget sketchybar --reload',
-    'workspace 1', # Move to Workspace 1 after startup
 ]
 
 # Notify Sketchybar about workspace change
