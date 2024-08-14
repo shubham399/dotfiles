@@ -5,29 +5,30 @@ get_focused_app_icon_for_workspace() {
 
   case "$APP_NAME" in
   "Arc")
-    echo "🌐" # Globe icon for Safari
+    echo "🌐" # Globe icon for Arc
     ;;
-  "Cursor")
-    echo "💻" # Laptop icon for Terminal
-    ;;
-  "WezTerm")
-    echo "💻" # Laptop icon for Terminal
+  "Cursor" | "WezTerm")
+    echo "💻" # Laptop icon for Cursor and WezTerm
     ;;
   "Finder")
     echo "🗂" # Folder icon for Finder
     ;;
   "Slack")
-    echo "💬" # Chat bubble or any emoji for Slack
+    echo "💬" # Chat bubble for Slack
     ;;
   # Add more applications here
   *)
-    echo "❓" # Default icon if app is not recognized
+    echo "❓" # Unknown app icon
     ;;
   esac
 }
 
 case "$SENDER" in
 "front_app_switched")
-  sketchybar --set $NAME label="$INFO" icon=$(get_focused_app_icon_for_workspace $INFO)
+  if [ -z "$INFO" ]; then
+    sketchybar --set $NAME label="" icon=""
+  else
+    sketchybar --set $NAME label="$INFO" icon=$(get_focused_app_icon_for_workspace "$INFO")
+  fi
   ;;
 esac
