@@ -3,7 +3,6 @@
 
 source "$HOME/.config/common_wm/colors.sh"
 source "$HOME/.config/common_wm/icons.sh"
-
 ITEM_DIR="$HOME/.config/sketchybar/items"
 PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
 
@@ -44,8 +43,6 @@ sketchybar --bar height=32 \
 # Left
 
 sketchybar --add event aerospace_workspace_change
-
-
 
 source "$ITEM_DIR/aerospace.sh"
 source "$ITEM_DIR/front_app.sh"
