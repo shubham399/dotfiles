@@ -75,6 +75,12 @@ sketchybar --add item battery right \
     update_freq=20 \
     script="$PLUGIN_DIR/battery.sh"
 
+sketchybar --add item volume right \
+    --set volume script="~/.config/sketchybar/plugins/volume.sh" \
+    background.color=$ORANGE \
+    background.height=20 \
+    update_freq=1
+
 source "$ITEM_DIR/brew.sh"
 
 ############## FINALIZING THE SETUP ##############
