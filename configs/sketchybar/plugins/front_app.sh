@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
-source "$PLUGIN_DIR/icon_map.sh"
+source "$HOME/.config/sketchybar/plugins/icon_map.sh"
 case "$SENDER" in
 "front_app_switched")
   ICON=$(__icon_map "$INFO")
