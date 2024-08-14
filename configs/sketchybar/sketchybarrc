@@ -51,9 +51,12 @@ for sid in $(aerospace list-workspaces --all); do
         --set space.$sid \
         background.color=$ORANGE \
         background.corner_radius=5 \
-        background.height=30 \
+        background.height=20 \
         background.drawing=off \
         label="$sid" \
+        label.padding_left=5 \
+        label.padding_right=15 \
+        label.align=center \
         click_script="aerospace workspace $sid" \
         script="$CONFIG_DIR/plugins/aerospace.sh $sid"
 done
@@ -61,8 +64,6 @@ done
 source "$ITEM_DIR/front_app.sh"
 
 # Center
-# source "$ITEM_DIR/mode_indicator.sh"
-
 sketchybar --add item weather center \
     --set weather \
     icon.font="$FONT_FACE:Bold:15.0" \
