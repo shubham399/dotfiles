@@ -1,3 +1,10 @@
+- name: Tap aerospace
+  homebrew_tap:
+    name: nikitabobko/tap
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+
 - name: Install aerospace
   homebrew:
     name: nikitabobko/tap/aerospace
