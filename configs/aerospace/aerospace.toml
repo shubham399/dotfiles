@@ -12,6 +12,8 @@ after-login-command = [
     'exec-and-forget open -n /Applications/Slack.app',
     'exec-and-forget open -n /Applications/Arc.app',
     'exec-and-forget open -n /Applications/WezTerm.app',
+    'exec-and-forget open -n /Applications/Apache\ CouchDB.app',
+    'exec-and-forget open -n /Applications/Bitwarden.app',
 ]
 
 # You can use it to add commands that run after AeroSpace startup.
@@ -210,6 +212,9 @@ run = "move-node-to-workspace 3"
 [[on-window-detected]]
 if.app-id = 'com.tinyspeck.slackmacgap'
 run = "move-node-to-workspace 4"
+[[on-window-detected]]
+if.app-id = 'com.bitwarden.desktop'
+run = "move-node-to-workspace 6"
 
 # Make a Window FLoating Forcefully if not behaving good with tiling
 # [[on-window-detected]]

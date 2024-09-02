@@ -114,6 +114,10 @@ isup() {
   curl -s https://isitup.org/$1 | egrep -o '(Yay, .* is up)|(Oh no .* is down!)' | uniq
 }
 
+function el(){
+  cd $(exercism download --track=go --exercise=$1 --force 2>&1| tail -1)
+}
+
 #
 # Functions
 #
