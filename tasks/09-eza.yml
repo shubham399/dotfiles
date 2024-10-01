@@ -1,0 +1,25 @@
+## Disabled because eza is not maintain (use eza instead)
+
+- name: Install eza on Debian/Ubuntu
+  apt:
+    name: eza
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install eza on CentOS/RHEL
+  yum:
+    name: eza
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install eza
+  homebrew:
+    name: eza
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+  environment:
+    HOMEBREW_NO_INSTALL_FROM_API: "1"

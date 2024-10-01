@@ -54,9 +54,7 @@ This setup will install the following tools:
   - [i3status](https://github.com/i3/i3status) – Lightweight status bar for i3
   - [safeeyes](https://slgobinath.github.io/SafeEyes/) – Eye strain prevention tool
   - [redshift](https://github.com/jonls/redshift) – Adjusts screen color temperature
-  
-- **Disabled**:
-  - [exa](https://github.com/ogham/exa) – Replacement for `ls` (disabled due to being unmaintained)
+  - [eza](eza.rocks) – Replacement for `ls`
 
 ## Build and Test Status
 
