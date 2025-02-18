@@ -9,12 +9,11 @@
 # Available commands: https://nikitabobko.github.io/AeroSpace/commands
 after-login-command = [
     'exec-and-forget sketchybar',
-    'exec-and-forget open -n /Applications/Arc.app',
+    'exec-and-forget open -n /Applications/Zen\ Browser.app',
     'exec-and-forget open -n /Applications/Bitwarden.app',
     'exec-and-forget open -n /Applications/Slack.app',
     'exec-and-forget open -n /Application/WhatsApp.app',
     'exec-and-forget open -n /Applications/WezTerm.app',
-    'exec-and-forget open -n /Applications/Apache\ CouchDB.app',
 ]
 
 # You can use it to add commands that run after AeroSpace startup.
@@ -87,7 +86,7 @@ outer.right = 18
 # 'main' binding mode must be always presented
 [mode.main.binding]
 
-cmd-h = [] # Disable "hide application"
+cmd-h = []     # Disable "hide application"
 cmd-alt-h = [] # Disable "hide others"
 
 # All possible keys:
@@ -110,7 +109,7 @@ cmd-alt-h = [] # Disable "hide others"
 ctrl-shift-enter = 'exec-and-forget open -n /Applications/WezTerm.app'
 ctrl-shift-c = 'exec-and-forget open -n /Applications/Cursor.app'
 ctrl-shift-s = 'exec-and-forget open -n /Applications/Slack.app'
-ctrl-shift-a = 'exec-and-forget open -n /Applications/Arc.app'
+ctrl-shift-a = 'exec-and-forget open -n /Applications/Zen\ Browser.app'
 ctrl-shift-p = 'exec-and-forget open -n /opt/homebrew/bin/sketchybar --reload'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#layout
@@ -206,7 +205,7 @@ if.app-name-regex-substring = 'Cursor'
 run = "move-node-to-workspace 2"
 
 [[on-window-detected]]
-if.app-id = 'company.thebrowser.Browser'
+if.app-id = 'app.zen-browser.zen'
 run = "move-node-to-workspace 3"
 
 [[on-window-detected]]
