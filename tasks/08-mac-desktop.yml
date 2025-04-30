@@ -94,22 +94,6 @@
   when: ansible_facts['distribution'] == 'MacOSX'
 
 
-- name: Install Time Out - Break Reminders app on MacOS
-  homebrew_cask:
-    name: time-out
-    state: present
-  when: ansible_facts['distribution'] == 'MacOSX'
-  ignore_errors: true
-  register: timeout_install_result
-
-- name: Handle time-out installation error on MacOSX
-  fail:
-    msg: "{{ timeout_install_result.msg }}"
-  when: "'Warning: Not upgrading time-out, the latest version is already installed' not in timeout_install_result.msg"
-  ignore_errors: true
-
-
-
 - name: Symlink AeroSpace
   file:
     src: "{{playbook_dir}}/configs/aerospace"
