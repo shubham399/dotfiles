@@ -27,21 +27,12 @@ ansible-playbook main.yml
 This setup will install the following tools:
 
 - **Cross-platform Tools**:
-  - [gnupg](https://gnupg.org/) – Open-source encryption software
-  - [git](https://git-scm.com/) – Version control system
-  - [git-delta](https://github.com/dandavison/delta) – Syntax-highlighting pager for git
-  - [tmux](https://github.com/tmux/tmux) – Terminal multiplexer
-  - [zsh](https://www.zsh.org/) – Shell with scripting capabilities
-  - [oh-my-zsh](https://ohmyz.sh/) – Zsh configuration framework
-  - [starship](https://starship.rs/) – Minimal prompt for any shell
-  - [nvim](https://neovim.io/) – Modern Vim-based text editor
-  - [fzf](https://github.com/junegunn/fzf) – Command-line fuzzy finder
   - [jq](https://jqlang.github.io/jq/) – JSON processor
-  - [vscode](https://code.visualstudio.com/) – Code editor
-  - [alacritty](https://github.com/alacritty/alacritty) – GPU-accelerated terminal emulator
   - [bat](https://github.com/sharkdp/bat) – A `cat` clone with syntax highlighting
   - [ripgrep](https://github.com/BurntSushi/ripgrep) – Fast search tool
-  
+  - [eza](https://eza.rocks) – Replacement for `ls`
+  - [trae](https://github.com/trae-ai/trae) – AI coding assistant
+
 - **MacOS Only**:
   - [yabai](https://github.com/koekeishiya/yabai) – Tiling window manager for MacOS
   - [skhd](https://github.com/koekeishiya/skhd) – Hotkey daemon for MacOS
@@ -54,7 +45,6 @@ This setup will install the following tools:
   - [i3status](https://github.com/i3/i3status) – Lightweight status bar for i3
   - [safeeyes](https://slgobinath.github.io/SafeEyes/) – Eye strain prevention tool
   - [redshift](https://github.com/jonls/redshift) – Adjusts screen color temperature
-  - [eza](https://eza.rocks) – Replacement for `ls`
 
 ## Build and Test Status
 
