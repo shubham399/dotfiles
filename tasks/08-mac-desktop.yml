@@ -55,7 +55,26 @@
     url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Hack.zip
     dest: "/tmp/HackNerdFont.zip"
     mode: 0644
-  when: ansible_facts['distribution'] == 'MacOSX'
+  when: ansible_facts['distribution'] == 'MacOSX' or ansible_facts['distribution'] in ['Debian', 'Ubuntu', 'CentOS', 'Red Hat Enterprise Linux']
+
+- name: Ensure user fonts directory exists (Linux)
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/.local/share/fonts"
+    state: directory
+    mode: 0755
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu', 'CentOS', 'Red Hat Enterprise Linux']
+
+- name: Unzip Hack Nerd Font to fonts directory (Linux)
+  ansible.builtin.unarchive:
+    src: "/tmp/HackNerdFont.zip"
+    dest: "{{ lookup('env', 'HOME') }}/.local/share/fonts/"
+    remote_src: yes
+    creates: "{{ lookup('env', 'HOME') }}/.local/share/fonts/HackNerdFont-Regular.ttf"
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu', 'CentOS', 'Red Hat Enterprise Linux']
+
+- name: Refresh font cache (Linux)
+  ansible.builtin.shell: fc-cache -fv
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu', 'CentOS', 'Red Hat Enterprise Linux']
 
 - name: Unzip Hack Nerd Font to Library/Fonts
   ansible.builtin.unarchive:
