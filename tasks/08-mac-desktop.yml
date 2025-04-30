@@ -50,6 +50,21 @@
     mode: 0644
   when: ansible_facts['distribution'] == 'MacOSX'
 
+- name: Download Hack Nerd Font
+  ansible.builtin.get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Hack.zip
+    dest: "/tmp/HackNerdFont.zip"
+    mode: 0644
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Unzip Hack Nerd Font to Library/Fonts
+  ansible.builtin.unarchive:
+    src: "/tmp/HackNerdFont.zip"
+    dest: "{{ lookup('env', 'HOME') }}/Library/Fonts/"
+    remote_src: yes
+    creates: "{{ lookup('env', 'HOME') }}/Library/Fonts/HackNerdFont-Regular.ttf"
+  when: ansible_facts['distribution'] == 'MacOSX'
+
 - name: Cleanup Cask
   ansible.builtin.shell: brew cleanup --prune=2
   when: ansible_facts['distribution'] == 'MacOSX'
