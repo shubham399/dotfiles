@@ -107,7 +107,7 @@ cmd-alt-h = [] # Disable "hide others"
 # You can uncomment this line to open up terminal with alt + enter shortcut
 # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
 ctrl-shift-enter = 'exec-and-forget open -n /Applications/WezTerm.app'
-ctrl-shift-c = 'exec-and-forget open -n /Applications/Cursor.app'
+ctrl-shift-c = 'exec-and-forget open -n /Applications/Trae.app'
 ctrl-shift-s = 'exec-and-forget open -n /Applications/Slack.app'
 ctrl-shift-a = 'exec-and-forget open -n /Applications/Zen\ Browser.app'
 ctrl-shift-p = 'exec-and-forget open -n /opt/homebrew/bin/sketchybar --reload'
@@ -201,7 +201,7 @@ if.app-id = 'com.github.wez.wezterm'
 run = "move-node-to-workspace 1"
 
 [[on-window-detected]]
-if.app-name-regex-substring = 'Cursor'
+if.app-id = 'com.trae.app'
 run = "move-node-to-workspace 2"
 
 [[on-window-detected]]
