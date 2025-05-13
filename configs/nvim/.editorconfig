@@ -2,6 +2,10 @@
 
 root = true
 
+[*.sh]
+indent_style = space
+indent_size = 4
+
 [**.js]
 indent_style = space
 indent_size = 4
