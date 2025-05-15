@@ -3,3 +3,4 @@
 -- Add any additional options here
 vim.opt.number = true -- Show absolute line numbers
 vim.opt.relativenumber = false -- Disable relative line numbers
+vim.o.clipboard = "unnamedplus"
