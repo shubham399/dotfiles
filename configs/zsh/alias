@@ -4,6 +4,10 @@ alias c=clear
 # View file content with syntax highlighting using 'bat'
 #alias cat=bat
 
+
+# VSC
+alias vsc="cursor ."
+
 # Connect to Bluetooth device with specified MAC address
 alias cbh='echo "connect  78:44:05:C9:3B:9F" | bluetoothctl'
 
