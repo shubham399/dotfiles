@@ -1,6 +1,6 @@
 # Clear the terminal
 alias c=clear
-
+alias vsc="cursor ."
 # View file content with syntax highlighting using 'bat'
 #alias cat=bat
 
