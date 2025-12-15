@@ -229,6 +229,11 @@ if.app-id = 'app.zen-browser.zen'
 run = "move-node-to-workspace 3"
 
 [[on-window-detected]]
+if.app-id = 'com.smartcodeltd.stremio'
+run = "move-node-to-workspace 9"
+
+
+[[on-window-detected]]
 if.app-id = 'net.whatsapp.WhatsApp'
 run = "move-node-to-workspace 8"
 [[on-window-detected]]
