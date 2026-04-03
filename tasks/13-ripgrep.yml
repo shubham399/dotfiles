@@ -1,0 +1,21 @@
+- name: Install ripgrep on Debian/Ubuntu
+  apt:
+    name: ripgrep
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install ripgrep on CentOS/RHEL
+  yum:
+    name: ripgrep
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install ripgrep on MacOSX
+  homebrew:
+    name: ripgrep
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'

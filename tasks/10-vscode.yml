@@ -1,0 +1,21 @@
+- name: Install Trae on Debian/Ubuntu
+  apt:
+    name: trae
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install Trae on CentOS/RHEL
+  yum:
+    name: trae
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install Trae on MacOSX
+  homebrew:
+    name: trae
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'

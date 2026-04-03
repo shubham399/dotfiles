@@ -1,0 +1,75 @@
+- name: Install GPG on Debian/Ubuntu
+  apt:
+    name: gnupg
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install GPG on CentOS/RHEL
+  yum:
+    name: gnupg
+    state: present
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install GPG on macOS
+  homebrew:
+    name: gnupg
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Download git-delta package
+  get_url:
+    url: https://github.com/dandavison/delta/releases/download/0.16.5/git-delta_0.16.5_amd64.deb
+    dest: /tmp/git-delta_0.16.5_amd64.deb
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install git-delta package
+  command: dpkg -i /tmp/git-delta_0.16.5_amd64.deb
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install Git-Delta on CentOS/RHEL
+  yum:
+    name: git-delta
+    state: present
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install Git-Delta on macOS
+  homebrew:
+    name: git-delta
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Install Git on Debian/Ubuntu
+  apt:
+    name: git
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install Git on CentOS/RHEL
+  yum:
+    name: git
+    state: present
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install Git on macOS
+  homebrew:
+    name: git
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Remove any Symlink of .gitconfig
+  file:
+    path: "$HOME/.gitconfig"
+    state: absent
+  ignore_errors: true
+
+- name: Symlink gitconfig
+  file:
+    src: "{{playbook_dir}}/configs/git/gitconfig"
+    dest: "$HOME/.gitconfig"
+    state: link

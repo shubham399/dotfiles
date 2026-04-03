@@ -1,0 +1,88 @@
+- name: Install Zsh on Debian/Ubuntu
+  apt:
+    name: zsh
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install Zsh on CentOS/RHEL
+  yum:
+    name: zsh
+    state: present
+  become: true
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install Zsh on macOS
+  homebrew:
+    name: zsh
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+
+- name: Remove any Symlink of .p10k.zsh
+  file:
+    path: "$HOME/.p10k.zsh"
+    state: absent
+  ignore_errors: true
+
+- name: Symlink p10k.zsh
+  file:
+    src: "{{playbook_dir}}/configs/zsh/p10k.zsh"
+    dest: "$HOME/.p10k.zsh"
+    state: link
+
+- name: Remove any Symlink of .alias
+  file:
+    path: "$HOME/.alias"
+    state: absent
+  ignore_errors: true
+
+- name: Symlink alias
+  file:
+    src: "{{playbook_dir}}/configs/zsh/alias"
+    dest: "$HOME/.alias"
+    state: link
+
+- name: Remove any Symlink of .zshrc
+  file:
+    path: "$HOME/.zshrc"
+    state: absent
+  ignore_errors: true
+
+- name: Get the current user's name
+  shell: echo $USER # Use the $USER environment variable to get the current user's name
+  register: current_user
+
+
+- name: Get the current user's current shell
+  shell: echo $SHELL
+  register: current_shell
+
+- name: Get the path to Zsh
+  shell: which zsh
+  register: zsh_path
+
+- name: Set Zsh as default shell for the current user
+  command: chsh -s {{ zsh_path.stdout }} {{ current_user.stdout }}
+  when: current_shell.stdout != zsh_path.stdout
+  become: true
+  become_method: sudo
+
+- name: Symlink zshrc
+  file:
+    src: "{{playbook_dir}}/configs/zsh/zshrc"
+    dest: "$HOME/.zshrc"
+    state: link
+
+- name: Remove any Symlink of .local/bin
+  file:
+    path: "$HOME/.local/bin"
+    state: absent
+  ignore_errors: true
+
+- name: Symlink zshrc
+  file:
+    src: "{{playbook_dir}}/configs/local/bin"
+    dest: "$HOME/.local/bin"
+    state: link

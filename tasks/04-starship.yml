@@ -1,0 +1,38 @@
+- name: Install curl on Debian/Ubuntu
+  apt:
+    name: curl
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install curl on CentOS/RHEL
+  yum:
+    name: curl
+    state: present
+  become: true
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Download Starship script using wget
+  get_url:
+    url: https://starship.rs/install.sh
+    dest: /tmp/starship_install.sh
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu','CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install starship on Debian/Ubuntu
+  script: /tmp/starship_install.sh -y
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu','CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install starship on macOS
+  homebrew:
+    name: starship
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Symlink starship.toml
+  file:
+    src: "{{playbook_dir}}/configs/starship.toml"
+    dest: "$HOME/.config/starship.toml"
+    state: link

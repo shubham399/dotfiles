@@ -1,0 +1,39 @@
+- name: Install curl on Debian/Ubuntu
+  apt:
+    name: curl
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install curl on CentOS/RHEL
+  yum:
+    name: curl
+    state: present
+  become: true
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install curl on Fedora
+  dnf:
+    name: curl
+    state: present
+  become: true
+  when: ansible_facts['distribution'] == 'Fedora'
+
+- name: Download zoxide install script using curl
+  get_url:
+    url: https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh
+    dest: /tmp/zoxide_install.sh
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu', 'CentOS', 'Red Hat Enterprise Linux', 'Fedora']
+
+- name: Install zoxide on Debian/Ubuntu/CentOS/RHEL/Fedora
+  script: /tmp/zoxide_install.sh
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu', 'CentOS', 'Red Hat Enterprise Linux', 'Fedora']
+
+- name: Install zoxide on macOS
+  homebrew:
+    name: zoxide
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'

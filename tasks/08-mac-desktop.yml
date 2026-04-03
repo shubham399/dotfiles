@@ -1,0 +1,109 @@
+- name: Tap aerospace
+  homebrew_tap:
+    name: nikitabobko/tap
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+
+- name: Install aerospace
+  homebrew:
+    name: nikitabobko/tap/aerospace
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+
+
+- name: Ensure FelixKratz/formulae tap is added
+  homebrew_tap:
+    name: FelixKratz/formulae
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Install JankyBorder
+  homebrew:
+    name: borders
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+
+- name: Install sketchybar
+  homebrew:
+    name: sketchybar
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Start SketchyBar service
+  ansible.builtin.shell: brew services start sketchybar
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Create Library/Fonts directory
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/Library/Fonts"
+    state: directory
+    mode: 0755
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Download sketchybar-app-font
+  ansible.builtin.get_url:
+    url: https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v1.0.4/sketchybar-app-font.ttf
+    dest: "{{ lookup('env', 'HOME') }}/Library/Fonts/sketchybar-app-font.ttf"
+    mode: 0644
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Download Hack Nerd Font
+  ansible.builtin.get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Hack.zip
+    dest: "/tmp/HackNerdFont.zip"
+    mode: 0644
+  when: ansible_facts['distribution'] == 'MacOSX' or ansible_facts['distribution'] in ['Debian', 'Ubuntu', 'CentOS', 'Red Hat Enterprise Linux']
+
+- name: Ensure user fonts directory exists (Linux)
+  ansible.builtin.file:
+    path: "{{ lookup('env', 'HOME') }}/.local/share/fonts"
+    state: directory
+    mode: 0755
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu', 'CentOS', 'Red Hat Enterprise Linux']
+
+- name: Unzip Hack Nerd Font to fonts directory (Linux)
+  ansible.builtin.unarchive:
+    src: "/tmp/HackNerdFont.zip"
+    dest: "{{ lookup('env', 'HOME') }}/.local/share/fonts/"
+    remote_src: yes
+    creates: "{{ lookup('env', 'HOME') }}/.local/share/fonts/HackNerdFont-Regular.ttf"
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu', 'CentOS', 'Red Hat Enterprise Linux']
+
+- name: Refresh font cache (Linux)
+  ansible.builtin.shell: fc-cache -fv
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu', 'CentOS', 'Red Hat Enterprise Linux']
+
+- name: Unzip Hack Nerd Font to Library/Fonts
+  ansible.builtin.unarchive:
+    src: "/tmp/HackNerdFont.zip"
+    dest: "{{ lookup('env', 'HOME') }}/Library/Fonts/"
+    remote_src: yes
+    creates: "{{ lookup('env', 'HOME') }}/Library/Fonts/HackNerdFont-Regular.ttf"
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Cleanup Cask
+  ansible.builtin.shell: brew cleanup --prune=2
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Install SF Symbols with Homebrew
+  ansible.builtin.shell: brew install sf-symbols --cask --force
+  ignore_errors: true # TODO: fix this for GithubAction
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+
+- name: Symlink AeroSpace
+  file:
+    src: "{{playbook_dir}}/configs/aerospace"
+    dest: "$HOME/.config/aerospace"
+    state: link
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Symlink sketchybar
+  file:
+    src: "{{playbook_dir}}/configs/sketchybar"
+    dest: "$HOME/.config/sketchybar"
+    state: link
+  when: ansible_facts['distribution'] == 'MacOSX'

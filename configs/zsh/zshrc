@@ -1,0 +1,155 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p11k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# Homebrew initialization (for macOS)
+if [[ -f "/opt/homebrew/bin/brew" ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# Set the directory we want to store zinit and plugins
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+
+# Download Zinit, if it's not there yet
+if [ ! -d "$ZINIT_HOME" ]; then
+  mkdir -p "$(dirname $ZINIT_HOME)"
+  git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+
+# Source/Load zinit
+source "${ZINIT_HOME}/zinit.zsh"
+
+# Load Powerlevel10k theme
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+
+# Load completions
+autoload -Uz compinit && compinit
+
+# Completion styling
+zstyle ':completion:*' menu no
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+
+# Load Zsh plugins
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
+zinit light "MichaelAquilina/zsh-you-should-use"
+
+# Load Oh My Zsh plugins (snippets)
+zinit snippet OMZP::git
+zinit snippet OMZP::sudo
+zinit snippet OMZP::aws
+zinit snippet OMZP::node
+zinit snippet OMZP::npm
+zinit snippet OMZP::nvm
+zinit snippet OMZP::vscode
+zinit snippet OMZP::kubectl
+zinit snippet OMZP::kubectx
+zinit snippet OMZP::command-not-found
+
+zinit cdreplay -q
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Keybindings
+bindkey -e
+bindkey '^p' history-search-backward
+bindkey '^n' history-search-forward
+bindkey '^[w' kill-region
+
+# History settings
+HISTSIZE=90000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+
+# Source secrets and aliases
+for file in $(find -L ~/.secrets -type f); do source $file >/dev/null; done
+source ~/.alias
+
+# Environment variables
+export EDITOR=nvim
+export NVM_BIN=$HOME/.nvm/versions/node/v8.12.0/bin
+export NVM_CD_FLAGS=-q
+export NVM_DIR=$HOME/.nvm
+export NVM_IOJS_ORG_MIRROR=https://iojs.org/dist
+export NVM_NODEJS_ORG_MIRROR=https://nodejs.org/dist
+
+export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+
+if [ "$TERM_PROGRAM" = "ghostty" ]; then
+
+if [ -z "$TMUX" ]; then
+  tmux new-session -A -s main
+fi
+fi 
+
+if command -v ngrok &>/dev/null; then
+  eval "$(ngrok completion)"
+fi
+
+# Load NVM
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# Shell integrations
+eval "$(fzf --zsh)"
+eval "$(zoxide init zsh --cmd cd)"
+# Auto change nvm version on cd based on .nvmrc file
+autoload -U add-zsh-hook
+
+load-nvmrc() {
+  local nvmrc_path
+  nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version
+    nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$(nvm version)" ]; then
+      nvm use
+    fi
+  elif [ -n "$(PWD=$OLDPWD nvm_find_nvmrc)" ] && [ "$(nvm version)" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+
+
+export XDG_CONFIG_HOME="$HOME/.config"
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
+export DENO_INSTALL="$HOME/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+#eval "$(atuin init zsh --disable-ctrl-r)"
+export PATH="$HOME/.bun/bin:$PATH"
+export PATH="$HOME/.docker/bin:$PATH"
+
+# Added by Antigravity
+export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+eval "$(starship init zsh)"
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/shubham/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions

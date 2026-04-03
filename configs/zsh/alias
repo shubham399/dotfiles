@@ -1,0 +1,202 @@
+# Clear the terminal
+alias c=clear
+alias vsc="cursor ."
+# View file content with syntax highlighting using 'bat'
+#alias cat=bat
+
+
+# VSC
+alias vsc="cursor ."
+
+# Connect to Bluetooth device with specified MAC address
+function cbh() {
+  case "$(uname)" in
+    Darwin)
+      blueutil --power 1 >/dev/null
+      blueutil --connect "WH-1000XM4"
+      ;;
+    Linux)
+      bluetoothctl power on >/dev/null 2>&1
+      echo "connect 14:3F:A6:98:84:BA" | bluetoothctl
+      ;;
+  esac
+}
+
+
+
+# Copy SSH public key to authorized_keys file
+alias cc="echo -n \"echo '$(cat ~/.ssh/id_rsa.pub)' >> ~/.ssh/authorized_keys\" | pc"
+
+# Display recently visited directories
+alias d='dirs -v | head -10'
+
+# Disconnect from Bluetooth device with specified MAC address
+function dbh() {
+  case "$(uname)" in
+    Darwin)
+      blueutil --disconnect "WH-1000XM4"
+      ;;
+    Linux)
+      echo "disconnect 14:3F:A6:98:84:BA" | bluetoothctl
+      ;;
+  esac
+}
+
+# Git add commands
+alias ga='git add'
+alias gaa='git add --all'
+alias gap='git apply'
+alias gapa='git add --patch'
+alias gau='git add --update'
+alias gav='git add --verbose'
+
+# Git branch commands
+alias gb='git branch'
+alias gbD='git branch -D'
+alias gba='git branch -a'
+alias gbd='git branch -d'
+alias gbda='git branch --no-color --merged | command grep -vE "^(\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d'
+alias gbl='git blame -b -w'
+alias gbnm='git branch --no-merged'
+alias gbr='git branch --remote'
+
+# Git bisect commands
+alias gbs='git bisect'
+alias gbsb='git bisect bad'
+alias gbsg='git bisect good'
+alias gbsr='git bisect reset'
+alias gbss='git bisect start'
+
+# Git commit commands
+alias gc='git commit -v'
+
+# Git fetch and pull
+alias gpull='git fetch && git pull'
+
+alias gitdelete='git fetch --all -p; git branch -vv | grep ": gone]" | awk '\''{ print $1 }'\'' | xargs -n 1 git branch -D'
+# Git pull and delete remote branches that are no longer available
+alias gpd="gpull && gitdelete"
+
+# Git log commands
+alias gls="git log --oneline --graph --decorate"
+alias glad='git log --all --decorate --oneline --graph'
+alias glgga="git log --graph --pretty=oneline --abbrev-commit --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' "
+
+# General Git alias
+alias g=git
+
+# Hexo and Git commands for personal website update
+alias htw="cd ~/Documents/Personal/shubhkumar.in;rm -Rf node_modules;nvm use;npm i;hexo clean;hexo g;hexo twitter-publish;git add .;git commit -m 'Twitter post';git push"
+
+# Process JSON with 'jsonpp' and copy to clipboard
+alias jj="pbpaste | jsonpp | pbcopy"
+
+# List files using 'exa'
+# alias ls=exa
+
+alias l='ls --color=auto'
+# List all files and directories including hidden ones
+alias la='la -a'
+
+# List all files with detailed information
+alias ll='l -lah'
+
+# Create directory with parent directories if necessary
+alias md='mkdir -p'
+
+# Copy to clipboard and paste commands
+alias pc=pbcopy
+alias pp=pbpaste
+
+# Source the zsh configuration file
+alias s="source ~/.zshrc"
+
+# Copy SSH key from clipboard to authorized_keys file
+alias skey="echo -n \"echo '$(pbpaste)' >> ~/.ssh/authorized_keys\" | pc"
+
+# List files with 'exa'
+alias sl=exa
+
+# System update on Debian-based systems
+alias sysup="sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoclean -y && sudo apt-get autoremove -y"
+
+# Generate a random UUID
+alias uuid='LC_ALL=C tr -dc "a-f0-9" < /dev/urandom | head -c 32 | \
+sed -E "s/^(.{8})(.{4})(.{4})(.{4})(.{12})$/\1-\2-4\3-\4-\5/" | \
+awk -F- "{hex=\"89ab\"; \$4=substr(hex,int(rand()*4)+1,1) substr(\$4,2); print \$1\"-\"\$2\"-\"\$3\"-\"\$4\"-\"\$5}" | pc'
+# Launch NeoVim using 'nvim'
+alias vim="nvim"
+
+## Get me a new temp working dir
+ot() {
+  cd $(mktemp -d)
+}
+## Kubernetes Shell
+kshell() {
+  kubectl exec -it $1 -- bash
+}
+
+isup() {
+  curl -s https://isitup.org/$1 | egrep -o '(Yay, .* is up)|(Oh no .* is down!)' | uniq
+}
+
+function el(){
+  cd $(exercism download --track=go --exercise=$1 --force 2>&1| tail -1)
+}
+
+#
+# Functions
+#
+
+# The name of the current branch
+# Back-compatibility wrapper for when this function was defined here in
+# the plugin, before being pulled in to core lib/git.zsh as git_current_branch()
+# to fix the core -> git plugin dependency.
+function current_branch() {
+  git_current_branch
+}
+
+# Pretty log messages
+function _git_log_prettily() {
+  if ! [ -z $1 ]; then
+    git log --pretty=$1
+  fi
+}
+
+# Warn if the current branch is a WIP
+function work_in_progress() {
+  command git -c log.showSignature=false log -n 1 2>/dev/null | grep -q -- "--wip--" && echo "WIP!!"
+}
+
+# Check if main exists and use instead of master
+function git_main_branch() {
+  command git rev-parse --git-dir &>/dev/null || return
+  local ref
+  for ref in refs/{heads,remotes/{origin,upstream}}/{main,trunk,mainline,default}; do
+    if command git show-ref -q --verify $ref; then
+      echo ${ref:t}
+      return
+    fi
+  done
+  echo master
+}
+
+# Check for develop and similarly named branches
+function git_develop_branch() {
+  command git rev-parse --git-dir &>/dev/null || return
+  local branch
+  for branch in dev devel development; do
+    if command git show-ref -q --verify refs/heads/$branch; then
+      echo $branch
+      return
+    fi
+  done
+  echo develop
+}
+
+function commit() {
+  git commit -S -m "$1"
+}
+function cm() {
+  git commit -S -m "$1"
+}

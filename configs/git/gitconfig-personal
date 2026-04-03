@@ -1,0 +1,8 @@
+[commit]
+	gpgsign = true
+[user]
+	signingkey = FA0F5D5028314E75
+        email = hello@shubhkumar.in
+	name = Shubham Kumar
+[gpg]
+	program = /opt/homebrew/bin/gpg

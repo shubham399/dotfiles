@@ -1,0 +1,12 @@
+- name: Run 'sudo apt update'
+  ansible.builtin.shell: apt update
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Create .config folder
+  ansible.builtin.shell: mkdir -p ~/.config
+
+- name: Create .config folder
+  ansible.builtin.shell: mkdir -p ~/.secrets
+

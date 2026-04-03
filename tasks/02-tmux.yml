@@ -1,0 +1,47 @@
+- name: Install Tmux on Debian/Ubuntu
+  apt:
+    name: tmux
+    state: present
+  become: true
+  become_method: sudo
+  when: ansible_facts['distribution'] in ['Debian', 'Ubuntu']
+
+- name: Install Tmux on CentOS/RHEL
+  yum:
+    name: tmux
+    state: present
+  when: ansible_facts['distribution'] in ['CentOS', 'Red Hat Enterprise Linux']
+
+- name: Install TMUX
+  homebrew:
+    name: tmux
+    state: present
+  when: ansible_facts['distribution'] == 'MacOSX'
+
+- name: Clone TPM repository
+  git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: ~/.tmux/plugins/tpm
+
+- name: Remove any Symlink of .tmux.conf
+  file:
+    path: "$HOME/.tmux.conf"
+    state: absent
+  ignore_errors: true
+
+- name: Symlink tmux.conf
+  file:
+    src: "{{playbook_dir}}/configs/tmux/tmux.conf"
+    dest: "$HOME/.tmux.conf"
+    state: link
+
+- name: Ensure Tmux Server is Running
+  command: tmux new-session -d -s ansible-check
+  ignore_errors: true
+
+- name: Reload Tmux Configuration
+  command: tmux source-file ~/.tmux.conf
+
+- name: Install Plugins using TPM
+  command: ~/.tmux/plugins/tpm/bin/install_plugins
+
