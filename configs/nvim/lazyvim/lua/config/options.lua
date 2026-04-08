@@ -3,3 +3,11 @@
 -- Add any additional options here
 vim.opt.number = true -- Show absolute line numbers
 vim.opt.relativenumber = false -- Disable relative line numbers
+
+vim.filetype.add({
+  pattern = {
+    [".*[Jj]enkinsfile%-.*"] = "groovy",
+    [".*%.dockerignore*"] = "dockerignore",
+    [".*Dockerfile*"] = "dockerfile",
+  },
+})

@@ -27,3 +27,13 @@ vim.keymap.set("n", "<leader>fY", function()
   vim.fn.setreg("+", path)
   vim.notify("Copied: " .. path)
 end, { desc = "Copy Absolute Path" })
+
+local map = vim.keymap.set
+
+-- Normal mode
+map("n", "<leader>mj", "<cmd>m .+1<CR>==", { desc = "Move line down" })
+map("n", "<leader>mk", "<cmd>m .-2<CR>==", { desc = "Move line up" })
+
+-- Visual mode
+map("v", "<leader>mj", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+map("v", "<leader>mk", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
