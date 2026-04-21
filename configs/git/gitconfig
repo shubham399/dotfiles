@@ -37,6 +37,8 @@
 
 [includeIf "gitdir:~/Documents/Personal/"]
     path = ~/.gitconfig-personal
+[includeIf "gitdir:~/Documents/opensource/"]
+    path = ~/.gitconfig-personal
 [core]
 	pager = delta
 [merge]
