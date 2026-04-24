@@ -43,3 +43,5 @@
 	pager = delta
 [merge]
 	conflictStyle = zdiff3
+[user]
+	name = Shubham Kumar

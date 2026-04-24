@@ -115,6 +115,15 @@ eval "$(zoxide init zsh --cmd cd)"
 # Auto change nvm version on cd based on .nvmrc file
 autoload -U add-zsh-hook
 
+cleanup_nvm_path() {
+  export PATH="$(printf '%s\n' "$PATH" | \
+    tr ':' '\n' | \
+    grep -v '/.nvm/versions/node/.*/bin' | \
+    awk '!seen[$0]++' | \
+    paste -sd ':' -
+  )"
+}
+
 load-nvmrc() {
   local nvmrc_path
   nvmrc_path="$(nvm_find_nvmrc)"
@@ -122,21 +131,25 @@ load-nvmrc() {
   if [ -n "$nvmrc_path" ]; then
     local nvmrc_node_version
     nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
     if [ "$nvmrc_node_version" = "N/A" ]; then
+      cleanup_nvm_path
       nvm install
     elif [ "$nvmrc_node_version" != "$(nvm version)" ]; then
-      nvm use
+      cleanup_nvm_path
+      nvm use --silent
     fi
-  elif [ -n "$(PWD=$OLDPWD nvm_find_nvmrc)" ] && [ "$(nvm version)" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
+  elif [ -n "$(PWD=$OLDPWD nvm_find_nvmrc)" ] && \
+       [ "$(nvm version)" != "$(nvm version default)" ]; then
+    cleanup_nvm_path
+    nvm use default --silent
   fi
 }
-
-
 export XDG_CONFIG_HOME="$HOME/.config"
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
+
+
 export DENO_INSTALL="$HOME/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
@@ -155,3 +168,4 @@ compinit
 # End of Docker CLI completions
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 export JAVA_HOME="/opt/homebrew/opt/openjdk"
+export PATH="$HOME/.safe-chain/shims:$PATH"

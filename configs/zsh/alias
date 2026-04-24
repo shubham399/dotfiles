@@ -92,7 +92,7 @@ alias htw="cd ~/Documents/Personal/shubhkumar.in;rm -Rf node_modules;nvm use;npm
 alias jj="pbpaste | jsonpp | pbcopy"
 
 # List files using 'exa'
-# alias ls=exa
+alias ls=eza
 
 alias l='ls --color=auto'
 # List all files and directories including hidden ones
@@ -115,7 +115,7 @@ alias s="source ~/.zshrc"
 alias skey="echo -n \"echo '$(pbpaste)' >> ~/.ssh/authorized_keys\" | pc"
 
 # List files with 'exa'
-alias sl=exa
+alias sl=eza
 
 # System update on Debian-based systems
 alias sysup="sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get dist-upgrade -y && sudo apt-get autoclean -y && sudo apt-get autoremove -y"
