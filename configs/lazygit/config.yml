@@ -1,3 +1,10 @@
 git:
   pagers:
     - pager: delta --dark --paging=never
+customCommands:
+  - key: "H"
+    # Use {{.SelectedCommitFile.Name}} for the file context inside a commit
+    command: "git log -L {{.SelectedLine.Number}},{{.SelectedLine.Number}}:{{.SelectedCommitFile.Name}}"
+    context: "commitFiles"
+    description: "View line history from commit view"
+    output: terminal
