@@ -35,9 +35,12 @@ function dbh() {
   case "$(uname)" in
     Darwin)
       blueutil --disconnect "WH-1000XM4"
+      blueutil --power 0 > /dev/null
       ;;
     Linux)
       echo "disconnect 14:3F:A6:98:84:BA" | bluetoothctl
+      bluetoothctl power off > /dev/null 2>&1
+
       ;;
   esac
 }
@@ -200,3 +203,4 @@ function commit() {
 function cm() {
   git commit -S -m "$1"
 }
+alias git-fix-origin='rm -rf .git/refs/remotes/origin && rm -f .git/packed-refs && git fetch origin && git pull'
