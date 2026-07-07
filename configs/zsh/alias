@@ -204,3 +204,23 @@ function cm() {
   git commit -S -m "$1"
 }
 alias git-fix-origin='rm -rf .git/refs/remotes/origin && rm -f .git/packed-refs && git fetch origin && git pull'
+
+# safe-npm: npm install inside safe-chain-guarded container. Auto-builds image if missing.
+# Usage: snpm "npm i"   |   snpm  (interactive shell)
+function snpm() {
+  docker image inspect safe-npm >/dev/null 2>&1 || docker build --platform linux/amd64 -t safe-npm - <<'DOCKERFILE'
+FROM node:24-alpine3.21
+RUN apk add --no-cache curl bash \
+ && npm i -g npm@11.13.0 \
+ && curl -fsSL https://github.com/AikidoSec/safe-chain/releases/latest/download/install-safe-chain.sh | bash \
+ && mkdir -p ~/.safe-chain \
+ && echo '{"minimumPackageAgeHours":72}' > ~/.safe-chain/config.json
+WORKDIR /api
+ENTRYPOINT ["bash", "-i", "-c"]
+CMD ["bash"]
+DOCKERFILE
+  docker run --rm -it --platform linux/amd64 \
+    -v "$PWD:/api" -e GIT_NPM_TOKEN \
+    -e SAFE_CHAIN_MINIMUM_PACKAGE_AGE_EXCLUSIONS='@AlaanPay/*' \
+    safe-npm "$@"
+}

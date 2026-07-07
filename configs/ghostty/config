@@ -1,0 +1,75 @@
+# =========================
+# Font
+# =========================
+font-family = Hack Nerd Font
+font-size = 15
+window-padding-color = background
+# =========================
+# Window Appearance
+# =========================
+background-opacity = 0.88
+background-blur = 10
+window-decoration = false
+macos-titlebar-style = hidden
+window-inherit-working-directory = true
+window-inherit-font-size = true
+fullscreen = true
+macos-non-native-fullscreen = visible-menu
+resize-overlay = always
+resize-overlay-position = center
+
+# Padding
+#padding-x = 8
+#padding-y = 8
+
+# =========================
+# Keybindings
+# =========================
+keybind = cmd+shift+f=toggle_fullscreen
+# keybind = global:cmd+shift+f=toggle_fullscreen
+
+# =========================
+# Cursor
+# =========================
+cursor-color = #47FF9C
+cursor-text = #011423
+cursor-style = block
+cursor-style-blink = true
+
+# =========================
+# Colors (Coolnight Theme)
+# =========================
+foreground = #CBE0F0
+background = #011423
+selection-background = #033259
+selection-foreground = #CBE0F0
+
+# ANSI colors (0–7)
+palette = 0=#214969
+palette = 1=#E52E2E
+palette = 2=#44FFB1
+palette = 3=#FFE073
+palette = 4=#0FC5ED
+palette = 5=#A277FF
+palette = 6=#24EAF7
+palette = 7=#CBE0F0
+
+# Bright colors (8–15)
+palette = 8=#214969
+palette = 9=#E52E2E
+palette = 10=#44FFB1
+palette = 11=#FFE073
+palette = 12=#A277FF
+palette = 13=#A277FF
+palette = 14=#24EAF7
+palette = 15=#24EAF7
+
+
+# Make Option behave like Alt for terminal apps
+macos-option-as-alt = true
+
+# Forward Option+Arrow as Alt+Arrow
+keybind = alt+left=text:\x1b[1;3D
+keybind = alt+right=text:\x1b[1;3C
+keybind = alt+up=text:\x1b[1;3A
+keybind = alt+down=text:\x1b[1;3B

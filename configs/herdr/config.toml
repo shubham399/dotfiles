@@ -1,0 +1,92 @@
+# ~/.config/herdr/config.toml
+
+# Keep Herdr from nesting inside itself
+allow_nested = false
+
+[keys]
+# ----------------------------
+# Splits (tmux-like)
+# ----------------------------
+# tmux: prefix + %  => vertical split
+# tmux: prefix + "  => horizontal split
+split_vertical   = ["prefix+v", "prefix+percent"]
+split_horizontal = ["prefix+minus" ]
+
+# ----------------------------
+# Pane navigation
+# ----------------------------
+# tmux-style vim movement + arrow keys after prefix
+# plus direct Option+Arrow movement in Ghostty/macOS (usually maps to alt)
+focus_pane_left  = ["prefix+h", "prefix+left", "alt+left"]
+focus_pane_down  = ["prefix+j", "prefix+down", "alt+down"]
+focus_pane_up    = ["prefix+k", "prefix+up", "alt+up"]
+focus_pane_right = ["prefix+l", "prefix+right", "alt+right"]
+
+# ----------------------------
+# Pane management
+# ----------------------------
+close_pane = ["prefix+x"]
+zoom       = ["prefix+z"]
+
+# Swap panes around (useful since Herdr doesn’t split left/up directly)
+swap_pane_left  = ["prefix+shift+h"]
+swap_pane_down  = ["prefix+shift+j"]
+swap_pane_up    = ["prefix+shift+k"]
+swap_pane_right = ["prefix+shift+l"]
+
+# Enter resize mode
+resize = ["prefix+r"]
+
+# Copy mode
+copy_mode = ["prefix+["]
+
+# ----------------------------
+# Tabs
+# ----------------------------
+new_tab       = ["prefix+c"]
+close_tab     = ["prefix+shift+x"]
+next_tab      = ["prefix+n"]
+previous_tab  = ["prefix+p"]
+rename_tab    = ["prefix+shift+t"]
+
+goto_tab_1 = ["prefix+1"]
+goto_tab_2 = ["prefix+2"]
+goto_tab_3 = ["prefix+3"]
+goto_tab_4 = ["prefix+4"]
+goto_tab_5 = ["prefix+5"]
+goto_tab_6 = ["prefix+6"]
+goto_tab_7 = ["prefix+7"]
+goto_tab_8 = ["prefix+8"]
+goto_tab_9 = ["prefix+9"]
+
+# ----------------------------
+# Workspaces / pickers
+# ----------------------------
+workspace_picker = ["prefix+w"]
+new_workspace    = ["prefix+shift+n"]
+rename_workspace = ["prefix+shift+w"]
+close_workspace  = ["prefix+shift+d"]
+
+goto_picker    = ["prefix+g"]
+toggle_sidebar = ["prefix+b"]
+
+# ----------------------------
+# Session / utility
+# ----------------------------
+detach    = ["prefix+q"]
+show_help = ["prefix+shift+/"]
+
+
+[ui.sound]
+enabled = false
+
+[ui.toast]
+delivery = "terminal"
+
+[ui]
+show_agent_labels_on_pane_borders = true
+pane_gaps = false
+pane_borders = true
+
+[experimental]
+pane_history = true
