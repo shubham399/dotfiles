@@ -95,13 +95,11 @@ export NVM_NODEJS_ORG_MIRROR=https://nodejs.org/dist
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 
-if [ "$TERM_PROGRAM" = "ghostty" ]; then
-
-if [ -z "$TMUX" ]; then
-  tmux new-session -A -s main
+if [[ -o interactive ]] \
+  && [[ "$TERM_PROGRAM" == "ghostty" ]] \
+  && [[ -z "$HERDR_ENV" ]]; then
+  exec herdr
 fi
-fi 
-
 if command -v ngrok &>/dev/null; then
   eval "$(ngrok completion)"
 fi
