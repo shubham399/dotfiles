@@ -1,3 +1,7 @@
+
+onboarding = false
+
+
 # ~/.config/herdr/config.toml
 
 # Keep Herdr from nesting inside itself
@@ -10,7 +14,7 @@ allow_nested = false
 # tmux: prefix + %  => vertical split
 # tmux: prefix + "  => horizontal split
 split_vertical   = ["prefix+v", "prefix+percent"]
-split_horizontal = ["prefix+minus" ]
+split_horizontal = ["prefix+minus", "prefix+\""]
 
 # ----------------------------
 # Pane navigation
