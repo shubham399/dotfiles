@@ -214,7 +214,8 @@ RUN apk add --no-cache curl bash \
  && npm i -g npm@11.13.0 \
  && curl -fsSL https://github.com/AikidoSec/safe-chain/releases/latest/download/install-safe-chain.sh | bash \
  && mkdir -p ~/.safe-chain \
- && echo '{"minimumPackageAgeHours":72}' > ~/.safe-chain/config.json
+ && echo '{"minimumPackageAgeHours":72}' > ~/.safe-chain/config.json \ 
+ && echo '@AlaanPay:registry=https://npm.pkg.github.com' > ~/.npmrc 
 WORKDIR /api
 ENTRYPOINT ["bash", "-i", "-c"]
 CMD ["bash"]
@@ -222,5 +223,5 @@ DOCKERFILE
   docker run --rm -it --platform linux/amd64 \
     -v "$PWD:/api" -e GIT_NPM_TOKEN \
     -e SAFE_CHAIN_MINIMUM_PACKAGE_AGE_EXCLUSIONS='@AlaanPay/*' \
-    safe-npm "$@"
+    safe-npm "echo \"//npm.pkg.github.com/:_authToken=$GIT_NPM_TOKEN\" >> ~/.npmrc;$@"
 }
