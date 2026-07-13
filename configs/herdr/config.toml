@@ -13,7 +13,7 @@ allow_nested = false
 # ----------------------------
 # tmux: prefix + %  => vertical split
 # tmux: prefix + "  => horizontal split
-split_vertical   = ["prefix+v", "prefix+percent"]
+split_vertical = ["prefix+v", "prefix+percent"]
 split_horizontal = ["prefix+minus", "prefix+\""]
 
 # ----------------------------
@@ -21,21 +21,21 @@ split_horizontal = ["prefix+minus", "prefix+\""]
 # ----------------------------
 # tmux-style vim movement + arrow keys after prefix
 # plus direct Option+Arrow movement in Ghostty/macOS (usually maps to alt)
-focus_pane_left  = ["prefix+h", "prefix+left", "alt+left"]
-focus_pane_down  = ["prefix+j", "prefix+down", "alt+down"]
-focus_pane_up    = ["prefix+k", "prefix+up", "alt+up"]
+focus_pane_left = ["prefix+h", "prefix+left", "alt+left"]
+focus_pane_down = ["prefix+j", "prefix+down", "alt+down"]
+focus_pane_up = ["prefix+k", "prefix+up", "alt+up"]
 focus_pane_right = ["prefix+l", "prefix+right", "alt+right"]
 
 # ----------------------------
 # Pane management
 # ----------------------------
 close_pane = ["prefix+x"]
-zoom       = ["prefix+z"]
+zoom = ["prefix+z"]
 
 # Swap panes around (useful since Herdr doesn’t split left/up directly)
-swap_pane_left  = ["prefix+shift+h"]
-swap_pane_down  = ["prefix+shift+j"]
-swap_pane_up    = ["prefix+shift+k"]
+swap_pane_left = ["prefix+shift+h"]
+swap_pane_down = ["prefix+shift+j"]
+swap_pane_up = ["prefix+shift+k"]
 swap_pane_right = ["prefix+shift+l"]
 
 # Enter resize mode
@@ -47,11 +47,11 @@ copy_mode = ["prefix+["]
 # ----------------------------
 # Tabs
 # ----------------------------
-new_tab       = ["prefix+c"]
-close_tab     = ["prefix+shift+x"]
-next_tab      = ["prefix+n"]
-previous_tab  = ["prefix+p"]
-rename_tab    = ["prefix+shift+t"]
+new_tab = ["prefix+c"]
+close_tab = ["prefix+shift+x"]
+next_tab = ["prefix+n"]
+previous_tab = ["prefix+p"]
+rename_tab = ["prefix+shift+t"]
 
 goto_tab_1 = ["prefix+1"]
 goto_tab_2 = ["prefix+2"]
@@ -67,17 +67,17 @@ goto_tab_9 = ["prefix+9"]
 # Workspaces / pickers
 # ----------------------------
 workspace_picker = ["prefix+w"]
-new_workspace    = ["prefix+shift+n"]
+new_workspace = ["prefix+shift+n"]
 rename_workspace = ["prefix+shift+w"]
-close_workspace  = ["prefix+shift+d"]
+close_workspace = ["prefix+shift+d"]
 
-goto_picker    = ["prefix+g"]
+goto_picker = ["prefix+g"]
 toggle_sidebar = ["prefix+b"]
 
 # ----------------------------
 # Session / utility
 # ----------------------------
-detach    = ["prefix+q"]
+detach = ["prefix+q"]
 show_help = ["prefix+shift+/"]
 
 
@@ -94,3 +94,29 @@ pane_borders = true
 
 [experimental]
 pane_history = true
+
+
+[[keys.command]]
+key = "prefix+g"
+type = "pane"
+command = "lazygit"
+description = "Open lazygit"
+
+[[keys.command]]
+key = "prefix+y"
+type = "pane"
+command = "zsh -lc '/Users/shubham/.local/bin/yt'"
+description = "Open yt"
+placement = "overlay"
+
+[[keys.command]]
+key = "prefix+shift+y"
+type = "pane"
+command = "zsh -lc '/Users/shubham/.local/bin/yt stop'"
+description = "Open yt"
+placement = "overlay"
+
+
+[theme]
+name = "tokyo-night"
+auto_switch = false

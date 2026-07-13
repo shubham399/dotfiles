@@ -1,2 +1,7 @@
 node_modules/**
 **/node_modules/**
+/configs/herdr/herdr-client.log
+/configs/herdr/herdr-server.log
+/configs/herdr/release-notes.json
+/configs/herdr/session-history.json
+/configs/herdr/session.json
