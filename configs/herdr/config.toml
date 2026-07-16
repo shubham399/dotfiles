@@ -120,3 +120,10 @@ placement = "overlay"
 [theme]
 name = "tokyo-night"
 auto_switch = false
+
+[[keys.command]]
+key = "prefix+shift+a"
+type = "pane"
+command = "/Users/shubham/.config/herdr/plugins/herdr-agents-auto-compact/bin/watcher"
+description = "Claude Auto Compact"
+placement = "overlay"
