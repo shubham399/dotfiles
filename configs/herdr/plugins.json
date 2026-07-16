@@ -1,0 +1,42 @@
+[
+  {
+    "plugin_id": "shubham.agents-auto-compact",
+    "name": "Agents Auto Compact",
+    "version": "0.1.0",
+    "min_herdr_version": "0.7.0",
+    "description": "Automatically compacts AI agent conversations (Claude Code, opencode, ...).",
+    "manifest_path": "/Users/shubham/.dotfiles/configs/herdr/plugins/github/shubham.agents-auto-compact-bc9302e77407/herdr-plugin.toml",
+    "plugin_root": "/Users/shubham/.dotfiles/configs/herdr/plugins/github/shubham.agents-auto-compact-bc9302e77407",
+    "enabled": true,
+    "platforms": [
+      "macos",
+      "linux"
+    ],
+    "events": [
+      {
+        "on": "pane.agent_detected",
+        "command": [
+          "bin/start-daemon"
+        ]
+      }
+    ],
+    "panes": [
+      {
+        "id": "watcher",
+        "title": "Agents Auto Compact",
+        "placement": "overlay",
+        "command": [
+          "./bin/watcher"
+        ]
+      }
+    ],
+    "source": {
+      "kind": "github",
+      "owner": "shubham399",
+      "repo": "herdr-agents-auto-compact",
+      "resolved_commit": "af2c6f9dcb14f0de24944a6a69f53e7ba02a4f47",
+      "managed_path": "/Users/shubham/.config/herdr/plugins/github/shubham.agents-auto-compact-bc9302e77407",
+      "installed_unix_ms": 1784184211103
+    }
+  }
+]
